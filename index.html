@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APP YEGO — Propuesta de Proyecto · Kenocia</title>
+<meta name="description" content="Propuesta de proyecto APP YEGO, desarrollada por Kenocia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#080B14;
+  --surface:#0F1424;
+  --surface-2:#151B33;
+  --surface-3:#1B2240;
+  --border:rgba(255,255,255,.08);
+  --border-2:rgba(255,255,255,.14);
+  --text:#EEF0F9;
+  --text-muted:#8C93B4;
+  --text-dim:#5A6188;
+  --blue:#2E4EDB;
+  --blue-2:#4C63E8;
+  --violet:#7E5AEA;
+  --teal:#22C6B7;
+  --teal-2:#4FE0C9;
+  --grad-main: linear-gradient(115deg, var(--blue) 0%, var(--violet) 52%, var(--teal) 100%);
+  --grad-soft: linear-gradient(115deg, rgba(46,78,219,.16) 0%, rgba(126,90,234,.16) 52%, rgba(34,198,183,.16) 100%);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --maxw: 1180px;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:.001ms !important; transition-duration:.001ms !important;} }
+
+body{
+  background:var(--ink);
+  color:var(--text);
+  font-family:'Inter', sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(60vw 60vw at 85% -10%, rgba(46,78,219,.20), transparent 60%),
+    radial-gradient(50vw 50vw at -10% 20%, rgba(126,90,234,.14), transparent 60%),
+    radial-gradient(45vw 45vw at 50% 100%, rgba(34,198,183,.10), transparent 60%);
+}
+h1,h2,h3,h4{ font-family:'Sora', sans-serif; letter-spacing:-.01em; }
+.mono{ font-family:'JetBrains Mono', monospace; }
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; position:relative; z-index:1; }
+a{color:inherit;}
+::selection{ background:var(--violet); color:#fff; }
+
+/* ---------- NAV ---------- */
+#nav{
+  position:sticky; top:0; z-index:100;
+  backdrop-filter:blur(14px);
+  background:rgba(8,11,20,.72);
+  border-bottom:1px solid var(--border);
+}
+#nav .inner{ display:flex; align-items:center; justify-content:space-between; height:72px; }
+.brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+.brand img{ height:34px; width:34px; object-fit:contain; }
+.brand .wordmark{ font-family:'Sora',sans-serif; font-weight:700; font-size:16px; letter-spacing:.02em; white-space:nowrap; }
+.brand .wordmark span{ color:var(--text-muted); font-weight:500; }
+@media (max-width:480px){ .brand .wordmark span{ display:none; } }
+#nav .progress{ position:absolute; left:0; bottom:-1px; height:2px; width:0%; background:var(--grad-main); transition:width .1s linear; }
+.navlinks{ display:flex; gap:6px; align-items:center; }
+.navlinks a{
+  font-size:13.5px; color:var(--text-muted); text-decoration:none; padding:9px 14px;
+  border-radius:100px; transition:all .2s ease; font-weight:500;
+}
+.navlinks a:hover, .navlinks a.active{ color:var(--text); background:var(--surface-2); }
+@media (max-width:860px){ .navlinks{ display:none; } }
+
+/* ---------- SECTION SCAFFOLD ---------- */
+section{ position:relative; z-index:1; }
+.section-pad{ padding:120px 0; }
+@media (max-width:768px){ .section-pad{ padding:76px 0; } }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--teal-2); margin-bottom:18px;
+}
+.eyebrow::before{ content:""; width:20px; height:1px; background:var(--teal-2); }
+.section-title{ font-size:clamp(28px,4vw,44px); font-weight:700; line-height:1.1; max-width:820px; }
+.section-sub{ color:var(--text-muted); font-size:17px; max-width:640px; margin-top:16px; }
+.reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+.reveal.in{ opacity:1; transform:translateY(0); }
+
+/* ---------- HERO ---------- */
+#hero{ min-height:100vh; display:flex; align-items:center; padding-top:72px; }
+.hero-grid{ display:grid; grid-template-columns:1.1fr .8fr; gap:60px; align-items:center; width:100%; padding:60px 0; }
+@media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; gap:40px; } }
+.hero-tag{
+  display:inline-flex; align-items:center; gap:10px; padding:8px 16px 8px 8px;
+  border:1px solid var(--border-2); border-radius:100px; background:var(--surface);
+  font-size:13px; color:var(--text-muted); margin-bottom:28px;
+}
+.hero-tag .dot{ width:22px; height:22px; border-radius:50%; background:var(--grad-main); display:flex; align-items:center; justify-content:center; font-size:11px; }
+#hero h1{ font-size:clamp(40px,6.4vw,74px); font-weight:800; line-height:.98; }
+.grad{ background:var(--grad-main); -webkit-background-clip:text; background-clip:text; color:transparent; }
+#hero p.lead{ font-size:18px; color:var(--text-muted); max-width:520px; margin-top:26px; }
+.hero-meta{ display:flex; gap:32px; margin-top:44px; flex-wrap:wrap; }
+.hero-meta .item .k{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.06em; }
+.hero-meta .item .v{ font-size:17px; font-weight:600; margin-top:4px; }
+.hero-cta{ display:flex; gap:14px; margin-top:44px; flex-wrap:wrap; }
+.btn{
+  display:inline-flex; align-items:center; gap:8px; padding:14px 24px; border-radius:100px;
+  font-weight:600; font-size:14.5px; text-decoration:none; cursor:pointer; border:1px solid transparent;
+  transition:all .25s ease;
+}
+.btn-primary{ background:var(--grad-main); color:#fff; }
+.btn-primary:hover{ filter:brightness(1.12); transform:translateY(-1px); }
+.btn-ghost{ border-color:var(--border-2); color:var(--text); background:transparent; }
+.btn-ghost:hover{ background:var(--surface-2); }
+
+.hero-orb-wrap{ position:relative; display:flex; align-items:center; justify-content:center; }
+.hero-orb{
+  position:relative; width:min(420px,90%); aspect-ratio:1;
+  display:flex; align-items:center; justify-content:center;
+}
+.hero-orb .ring{ position:absolute; inset:0; border-radius:50%; border:1px solid var(--border-2); animation:spin 40s linear infinite; }
+.hero-orb .ring.r2{ inset:38px; border-color:rgba(126,90,234,.22); animation-duration:60s; animation-direction:reverse; }
+.hero-orb .ring.r3{ inset:76px; border-color:rgba(34,198,183,.22); animation-duration:30s; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.hero-orb .glow{ position:absolute; inset:60px; border-radius:50%; background:var(--grad-soft); filter:blur(30px); }
+.hero-orb img{ position:relative; width:46%; filter:drop-shadow(0 20px 60px rgba(46,78,219,.35)); animation:float 6s ease-in-out infinite; }
+@keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-14px);} }
+.hero-orb .node{ position:absolute; width:10px; height:10px; border-radius:50%; background:var(--teal-2); box-shadow:0 0 16px var(--teal-2); }
+
+/* ---------- CARDS shared ---------- */
+.card{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px; }
+.card:hover{ border-color:var(--border-2); }
+.grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+@media (max-width:860px){ .grid-2,.grid-3{ grid-template-columns:1fr; } }
+
+/* ---------- ANTEPROYECTO ---------- */
+.ante-grid{ display:grid; grid-template-columns:.95fr 1.05fr; gap:56px; margin-top:56px; align-items:start; }
+@media (max-width:900px){ .ante-grid{ grid-template-columns:1fr; } }
+.ante-list{ display:flex; flex-direction:column; gap:0; }
+.ante-item{ padding:22px 0; border-top:1px solid var(--border); }
+.ante-item:last-child{ border-bottom:1px solid var(--border); }
+.ante-item .n{ font-family:'JetBrains Mono',monospace; color:var(--teal-2); font-size:13px; }
+.ante-item h4{ font-size:18px; margin-top:6px; }
+.ante-item p{ color:var(--text-muted); font-size:14.5px; margin-top:8px; }
+.ante-visual{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:32px; position:sticky; top:100px; }
+.ante-visual h4{ font-size:14px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-dim); font-family:'JetBrains Mono',monospace; font-weight:500; margin-bottom:20px; }
+.flow-node{ display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:12px; background:var(--surface-2); margin-bottom:10px; border:1px solid var(--border); }
+.flow-node .ic{ width:34px; height:34px; border-radius:9px; background:var(--grad-soft); display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+.flow-node b{ font-size:14px; display:block; }
+.flow-node span{ font-size:12.5px; color:var(--text-muted); }
+.flow-line{ width:1px; height:16px; background:var(--border-2); margin-left:34px; }
+.excl-tag{ display:inline-flex; align-items:center; gap:6px; margin-top:16px; padding:8px 12px; border-radius:10px; background:rgba(255,150,90,.08); border:1px solid rgba(255,150,90,.25); color:#FFB088; font-size:12.5px; }
+
+/* ---------- TABS (Alcance) ---------- */
+.tabs{ display:flex; gap:10px; margin-top:44px; flex-wrap:wrap; }
+.tab-btn{
+  padding:12px 20px; border-radius:100px; border:1px solid var(--border-2); background:var(--surface);
+  color:var(--text-muted); font-weight:600; font-size:14px; cursor:pointer; transition:all .25s ease;
+  display:flex; align-items:center; gap:8px;
+}
+.tab-btn:hover{ color:var(--text); }
+.tab-btn.active{ background:var(--grad-main); color:#fff; border-color:transparent; }
+.tab-panels{ margin-top:32px; }
+.tab-panel{ display:none; }
+.tab-panel.active{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+@media (max-width:700px){ .tab-panel.active{ grid-template-columns:1fr; } }
+.cap-item{
+  display:flex; align-items:center; gap:12px; padding:16px 18px; background:var(--surface);
+  border:1px solid var(--border); border-radius:12px; font-size:14.5px;
+}
+.cap-item .chk{ width:20px; height:20px; border-radius:6px; background:var(--grad-soft); color:var(--teal-2); display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+
+/* ---------- DESIGN / JOURNEY STEPPER ---------- */
+.journey{ margin-top:56px; }
+.journey-phase{ margin-bottom:40px; }
+.journey-phase .ph-label{ font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--teal-2); text-transform:uppercase; letter-spacing:.06em; margin-bottom:16px; }
+.journey-steps{ display:flex; gap:12px; overflow-x:auto; padding-bottom:8px; }
+.jstep{
+  min-width:150px; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px;
+  transition:all .25s ease; cursor:default;
+}
+.jstep:hover{ border-color:var(--violet); transform:translateY(-3px); }
+.jstep .num{ font-family:'JetBrains Mono',monospace; color:var(--text-dim); font-size:12px; }
+.jstep .lbl{ font-size:13.5px; margin-top:8px; font-weight:600; line-height:1.35; }
+
+/* ---------- ECOSYSTEM DIAGRAM ---------- */
+.eco{ margin-top:56px; display:flex; flex-direction:column; align-items:center; gap:0; }
+.eco-row{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.eco-node{
+  width:190px; padding:18px; border-radius:14px; background:var(--surface); border:1px solid var(--border);
+  text-align:left; font-size:13px;
+}
+.eco-node.core{ background:var(--grad-main); color:#fff; border-color:transparent; }
+.eco-node.excl{ background:rgba(255,150,90,.06); border-color:rgba(255,150,90,.3); }
+.eco-node b{ display:block; font-size:14px; margin-bottom:6px; }
+.eco-node.core b{ color:#fff; }
+.eco-node span{ color:var(--text-muted); font-size:12px; line-height:1.4; }
+.eco-node.core span{ color:rgba(255,255,255,.85); }
+.eco-node.excl span{ color:#FFB088; }
+.eco-vline{ width:1px; height:28px; background:var(--border-2); }
+
+/* ---------- INVERSION (signature interactive) ---------- */
+.pricing-toggle{
+  display:inline-flex; padding:5px; background:var(--surface); border:1px solid var(--border-2); border-radius:100px;
+  margin-top:40px; position:relative;
+}
+.pricing-toggle button{
+  position:relative; z-index:2; padding:12px 26px; border-radius:100px; border:none; background:transparent;
+  color:var(--text-muted); font-weight:600; font-size:14px; cursor:pointer; font-family:'Inter',sans-serif;
+  transition:color .3s ease;
+}
+.pricing-toggle button.active{ color:#fff; }
+.pricing-toggle .slider{
+  position:absolute; top:5px; left:5px; height:calc(100% - 10px); border-radius:100px; background:var(--grad-main);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1), width .35s cubic-bezier(.2,.8,.2,1); z-index:1;
+}
+.price-stage{ margin-top:52px; }
+.price-hero{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+.price-hero .amt{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:clamp(44px,7vw,72px); background:var(--grad-main); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.price-hero .unit{ font-size:16px; color:var(--text-muted); }
+.price-note{ color:var(--text-muted); margin-top:12px; font-size:15px; max-width:560px; }
+.price-panels{ display:grid; grid-template-columns:1fr; gap:14px; margin-top:36px; }
+.price-panels.mode-single{ display:none; }
+.price-panels.mode-single.active{ display:grid; }
+.pay-row{
+  display:flex; align-items:center; justify-content:space-between; padding:18px 22px; background:var(--surface);
+  border:1px solid var(--border); border-radius:14px; opacity:0; transform:translateX(-10px); animation:slideIn .5s ease forwards;
+}
+@keyframes slideIn{ to{ opacity:1; transform:translateX(0);} }
+.pay-row .left{ display:flex; align-items:center; gap:16px; }
+.pay-row .badge{ width:34px; height:34px; border-radius:9px; background:var(--grad-soft); color:var(--teal-2); display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600; }
+.pay-row .t1{ font-weight:600; font-size:14.5px; }
+.pay-row .t2{ font-size:12.5px; color:var(--text-muted); }
+.pay-row .amt2{ font-family:'JetBrains Mono',monospace; font-weight:600; font-size:15px; }
+.support-card{
+  margin-top:20px; padding:26px; border-radius:16px; background:var(--surface); border:1px solid var(--border);
+  display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap;
+}
+.support-card .tag{ display:inline-block; padding:5px 12px; border-radius:100px; background:var(--surface-3); font-size:11.5px; font-family:'JetBrains Mono',monospace; color:var(--teal-2); margin-bottom:10px; }
+.support-list{ display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:14px; }
+.support-list span{ font-size:13px; color:var(--text-muted); display:flex; align-items:center; gap:7px; }
+.support-list span::before{ content:"✓"; color:var(--teal-2); font-weight:700; }
+.support-price{ text-align:right; }
+.support-price .amt3{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:26px; }
+.disclaimer{ margin-top:28px; font-size:12.5px; color:var(--text-dim); }
+
+/* ---------- COMO TRABAJAMOS ---------- */
+.benefit-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:48px; }
+@media (max-width:860px){ .benefit-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .benefit-grid{ grid-template-columns:1fr; } }
+.benefit-card{ padding:24px; border-radius:16px; background:var(--surface); border:1px solid var(--border); transition:all .3s ease; }
+.benefit-card:hover{ transform:translateY(-4px); border-color:var(--border-2); box-shadow:0 20px 40px -20px rgba(46,78,219,.3); }
+.benefit-card .ic{ width:38px; height:38px; border-radius:10px; background:var(--grad-soft); display:flex; align-items:center; justify-content:center; margin-bottom:14px; font-size:16px; }
+.benefit-card p{ font-size:14px; color:var(--text-muted); line-height:1.5; }
+.process-strip{ margin-top:60px; display:flex; gap:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.proc-item{ flex:1; padding:26px 20px; border-right:1px solid var(--border); }
+.proc-item:last-child{ border-right:none; }
+.proc-item .lbl{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--teal-2); text-transform:uppercase; letter-spacing:.05em; }
+.proc-item p{ margin-top:10px; font-size:13.5px; color:var(--text-muted); }
+@media (max-width:760px){ .process-strip{ flex-direction:column; } .proc-item{ border-right:none; border-bottom:1px solid var(--border); } }
+
+/* ---------- ENTREGABLES ---------- */
+.deliver-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:48px; }
+@media (max-width:860px){ .deliver-grid{ grid-template-columns:1fr 1fr; } }
+.deliver-card{ padding:22px; border-radius:14px; background:var(--surface); border:1px solid var(--border); text-align:center; }
+.deliver-card .ic{ width:44px; height:44px; margin:0 auto 14px; border-radius:12px; background:var(--grad-soft); display:flex; align-items:center; justify-content:center; font-size:19px; }
+.deliver-card b{ font-size:13.5px; display:block; }
+.warranty-band{
+  margin-top:56px; padding:36px; border-radius:20px; background:var(--grad-main); display:flex; align-items:center; gap:28px; flex-wrap:wrap; color:#fff;
+}
+.warranty-band .num{ font-family:'JetBrains Mono',monospace; font-weight:800; font-size:48px; line-height:1; }
+.warranty-band .txt{ font-size:14px; opacity:.92; max-width:520px; }
+
+/* ---------- FOOTER / CTA ---------- */
+#cta{ text-align:center; padding:140px 0; }
+#cta h2{ font-size:clamp(32px,5vw,54px); font-weight:800; max-width:680px; margin:0 auto; }
+#cta .grad{ background:var(--grad-main); -webkit-background-clip:text; background-clip:text; color:transparent; }
+#cta p{ color:var(--text-muted); margin-top:20px; }
+footer{ border-top:1px solid var(--border); padding:36px 0; }
+footer .inner{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+footer .fbrand{ display:flex; align-items:center; gap:10px; }
+footer .fbrand img{ height:24px; }
+footer .fbrand span{ font-family:'Sora',sans-serif; font-weight:700; font-size:14px; }
+footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
+
+/* section dividers */
+.divider{ height:1px; background:var(--border); }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap inner">
+    <a href="#hero" class="brand">
+      <img src="assets/kenocia-logo.png" alt="Kenocia">
+      <div class="wordmark">KENOCIA <span>· APP YEGO</span></div>
+    </a>
+    <div class="navlinks">
+      <a href="#anteproyecto">Anteproyecto</a>
+      <a href="#alcance">Alcance</a>
+      <a href="#diseno">Diseño</a>
+      <a href="#inversion">Inversión</a>
+      <a href="#trabajamos">Cómo trabajamos</a>
+      <a href="#entregables">Entregables</a>
+    </div>
+    <a href="#inversion" class="btn btn-primary" style="padding:10px 18px; font-size:13px;">Ver inversión</a>
+  </div>
+  <div class="progress" id="scrollProgress"></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-tag"><span class="dot">●</span> Propuesta de proyecto · Honduras 2026</div>
+      <h1>APP <span class="grad">YEGO</span><br>marketplace de<br>excedente comercial</h1>
+      <p class="lead">Producto Mínimo Viable: app de consumidor, gestión para comercios y backoffice sobre Odoo 18 CE — de la idea a producción en 5 meses.</p>
+      <div class="hero-meta">
+        <div class="item"><div class="k">Duración</div><div class="v">5 meses</div></div>
+        <div class="item"><div class="k">Plataformas</div><div class="v">Android · iOS · Odoo</div></div>
+        <div class="item"><div class="k">Mercado</div><div class="v">Honduras</div></div>
+      </div>
+      <div class="hero-cta">
+        <a href="#inversion" class="btn btn-primary">Ver inversión y planes</a>
+        <a href="#anteproyecto" class="btn btn-ghost">Explorar el alcance</a>
+      </div>
+    </div>
+    <div class="hero-orb-wrap">
+      <div class="hero-orb">
+        <div class="ring"></div>
+        <div class="ring r2"></div>
+        <div class="ring r3"></div>
+        <div class="glow"></div>
+        <img src="assets/kenocia-logo.png" alt="Kenocia logo">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- ANTEPROYECTO -->
+<section id="anteproyecto" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">01 · Anteproyecto</div>
+      <h2 class="section-title">Lo que vamos a construir, con el alcance y la lógica de la solución.</h2>
+      <p class="section-sub">Un Producto Mínimo Viable que conecta comercios con excedente disponible y consumidores que buscan aprovecharlo — con una base tecnológica propia, escalable y lista para crecer por etapas.</p>
+    </div>
+
+    <div class="ante-grid">
+      <div class="ante-list reveal">
+        <div class="ante-item">
+          <div class="n">01</div>
+          <h4>Introducción</h4>
+          <p>Plataforma digital orientada a la venta de "bolsas sorpresa" de productos con descuento, tomando como referencia modelos internacionales como Too Good To Go y Karma, adaptados al mercado hondureño.</p>
+        </div>
+        <div class="ante-item">
+          <div class="n">02</div>
+          <h4>Necesidad del negocio</h4>
+          <p>Articular la relación entre comercios con excedente disponible y consumidores, con visibilidad central para administración: usuarios, comercios, ofertas, reservas y pagos.</p>
+        </div>
+        <div class="ante-item">
+          <div class="n">03</div>
+          <h4>Propuesta de solución</h4>
+          <p>App de consumidor en Flutter, gestión de comercios y administración central sobre Odoo 18 CE, con pagos vía PowerTranz (BAC) y tableros de indicadores para comercios y administración.</p>
+        </div>
+        <div class="ante-item">
+          <div class="n">04</div>
+          <h4>Entrega y seguimiento</h4>
+          <p>La plataforma da seguimiento digital completo a la reserva. La preparación y entrega física de la oferta es operación del comercio y del cliente — Kenocia no gestiona logística de entrega.</p>
+        </div>
+      </div>
+
+      <div class="ante-visual reveal">
+        <h4>Flujo de reserva</h4>
+        <div class="flow-node"><div class="ic">📍</div><div><b>Descubrimiento</b><span>Consumidor localiza comercios cercanos</span></div></div>
+        <div class="flow-line"></div>
+        <div class="flow-node"><div class="ic">🛍️</div><div><b>Reserva</b><span>Selecciona oferta y confirma cantidad</span></div></div>
+        <div class="flow-line"></div>
+        <div class="flow-node"><div class="ic">💳</div><div><b>Pago</b><span>PowerTranz procesa el cobro (BAC)</span></div></div>
+        <div class="flow-line"></div>
+        <div class="flow-node"><div class="ic">✅</div><div><b>Recolección</b><span>Código de un solo uso en el comercio</span></div></div>
+        <div class="excl-tag">⚠ Entrega física — fuera del alcance de desarrollo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- ALCANCE / TABS -->
+<section id="alcance" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Alcance funcional</div>
+      <h2 class="section-title">Tres perfiles, un mismo ecosistema.</h2>
+      <p class="section-sub">Cada participante ve exactamente lo que necesita — sin fricción, sin funciones de más.</p>
+    </div>
+
+    <div class="tabs reveal">
+      <button class="tab-btn active" data-tab="consumidor">📱 Consumidor</button>
+      <button class="tab-btn" data-tab="comercio">🏪 Comercio</button>
+      <button class="tab-btn" data-tab="admin">🛡️ Administración</button>
+    </div>
+
+    <div class="tab-panels reveal">
+      <div class="tab-panel active" id="panel-consumidor">
+        <div class="cap-item"><div class="chk">✓</div>Registrarse e iniciar sesión</div>
+        <div class="cap-item"><div class="chk">✓</div>Localizar comercios cercanos</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar ofertas disponibles</div>
+        <div class="cap-item"><div class="chk">✓</div>Reservar una oferta</div>
+        <div class="cap-item"><div class="chk">✓</div>Pagar la reserva</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar estado de la reserva</div>
+        <div class="cap-item"><div class="chk">✓</div>Revisar reservas anteriores</div>
+        <div class="cap-item"><div class="chk">✓</div>Calificar la experiencia</div>
+      </div>
+      <div class="tab-panel" id="panel-comercio">
+        <div class="cap-item"><div class="chk">✓</div>Acceder a su cuenta</div>
+        <div class="cap-item"><div class="chk">✓</div>Administrar información y ubicación</div>
+        <div class="cap-item"><div class="chk">✓</div>Crear y actualizar ofertas</div>
+        <div class="cap-item"><div class="chk">✓</div>Controlar disponibilidad</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar reservas recibidas</div>
+        <div class="cap-item"><div class="chk">✓</div>Revisar estado de pago</div>
+        <div class="cap-item"><div class="chk">✓</div>Actualizar avance de la reserva</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar su tablero de indicadores</div>
+      </div>
+      <div class="tab-panel" id="panel-admin">
+        <div class="cap-item"><div class="chk">✓</div>Consultar consumidores</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar comercios</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar ofertas</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar reservas</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar pagos</div>
+        <div class="cap-item"><div class="chk">✓</div>Activar / desactivar comercios</div>
+        <div class="cap-item"><div class="chk">✓</div>Activar / desactivar ofertas</div>
+        <div class="cap-item"><div class="chk">✓</div>Tablero de indicadores general</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- DISEÑO -->
+<section id="diseno" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">02 · Diseño</div>
+      <h2 class="section-title">Ecosistema general de la plataforma.</h2>
+      <p class="section-sub">La plataforma conecta cuatro actores. La entrega física queda fuera de la frontera tecnológica.</p>
+    </div>
+
+    <div class="eco reveal">
+      <div class="eco-node card" style="text-align:center;"><b>🛡️ Administración</b><span>Supervisa consumidores, comercios, ofertas, reservas y pagos</span></div>
+      <div class="eco-vline"></div>
+      <div class="eco-row">
+        <div class="eco-node"><b>📱 Consumidor</b><span>Consulta, reserva, paga y da seguimiento</span></div>
+        <div class="eco-node core"><b>⬡ Plataforma</b><span>App · Gestión de comercio · Odoo</span></div>
+        <div class="eco-node"><b>🏪 Comercio</b><span>Ofertas, reservas y avance</span></div>
+      </div>
+      <div class="eco-vline"></div>
+      <div class="eco-row">
+        <div class="eco-node"><b>💳 Pasarela de pago</b><span>PowerTranz procesa las operaciones</span></div>
+        <div class="eco-node excl"><b>🚚 Entrega física</b><span>Operación del cliente — fuera del software</span></div>
+        <div class="eco-node"><b>🗺️ Mapas</b><span>Ubicación y cálculo de distancia</span></div>
+        <div class="eco-node"><b>📊 Tablero</b><span>Indicadores por comercio y generales</span></div>
+      </div>
+    </div>
+
+    <div class="journey reveal" style="margin-top:80px;">
+      <div class="eyebrow">Recorrido del consumidor</div>
+      <div class="journey-phase">
+        <div class="ph-label">Fase 1 — Descubrimiento</div>
+        <div class="journey-steps">
+          <div class="jstep"><div class="num">01</div><div class="lbl">Ingreso a la app</div></div>
+          <div class="jstep"><div class="num">02</div><div class="lbl">Autorización de ubicación</div></div>
+          <div class="jstep"><div class="num">03</div><div class="lbl">Comercios cercanos</div></div>
+          <div class="jstep"><div class="num">04</div><div class="lbl">Ordenamiento por distancia</div></div>
+          <div class="jstep"><div class="num">05</div><div class="lbl">Selección de comercio</div></div>
+        </div>
+      </div>
+      <div class="journey-phase">
+        <div class="ph-label">Fase 2 — Reserva</div>
+        <div class="journey-steps">
+          <div class="jstep"><div class="num">06</div><div class="lbl">Consulta de ofertas</div></div>
+          <div class="jstep"><div class="num">07</div><div class="lbl">Detalle de la oferta</div></div>
+          <div class="jstep"><div class="num">08</div><div class="lbl">Selección de cantidad</div></div>
+          <div class="jstep"><div class="num">09</div><div class="lbl">Información de entrega</div></div>
+          <div class="jstep"><div class="num">10</div><div class="lbl">Resumen de la reserva</div></div>
+        </div>
+      </div>
+      <div class="journey-phase">
+        <div class="ph-label">Fase 3 — Pago y seguimiento</div>
+        <div class="journey-steps">
+          <div class="jstep"><div class="num">11</div><div class="lbl">Pago</div></div>
+          <div class="jstep"><div class="num">12</div><div class="lbl">Confirmación</div></div>
+          <div class="jstep"><div class="num">13</div><div class="lbl">Seguimiento de la reserva</div></div>
+          <div class="jstep" style="border-color:var(--teal); background:var(--grad-soft);"><div class="num">14</div><div class="lbl">Reserva concluida</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- INVERSION -->
+<section id="inversion" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">03 · Inversión</div>
+      <h2 class="section-title">Una estructura clara, sin costos ocultos.</h2>
+      <p class="section-sub">Elige el modelo de inversión que mejor se ajuste: pago único del proyecto, o un fee mensual todo incluido.</p>
+    </div>
+
+    <div class="pricing-toggle reveal" id="pricingToggle">
+      <div class="slider" id="pricingSlider"></div>
+      <button class="active" data-mode="unico">Pago único</button>
+      <button data-mode="mensual">Fee mensual</button>
+    </div>
+
+    <!-- MODE: UNICO -->
+    <div class="price-stage reveal" id="mode-unico">
+      <div class="price-hero">
+        <span class="amt mono">$23,500</span>
+        <span class="unit">USD + IVA · inversión total del proyecto</span>
+      </div>
+      <p class="price-note">Desarrollo completo del MVP: app consumidor, backend/Odoo, integraciones y tableros de indicadores, del arranque a la puesta en producción.</p>
+
+      <div class="price-panels mode-single active" id="panel-unico">
+        <div class="pay-row" style="animation-delay:.05s"><div class="left"><div class="badge">1</div><div><div class="t1">Mensualidad 1</div><div class="t2">Agosto 2026 · 20% del total</div></div></div><div class="amt2">$4,700.00</div></div>
+        <div class="pay-row" style="animation-delay:.1s"><div class="left"><div class="badge">2</div><div><div class="t1">Mensualidad 2</div><div class="t2">Septiembre 2026 · 20% del total</div></div></div><div class="amt2">$4,700.00</div></div>
+        <div class="pay-row" style="animation-delay:.15s"><div class="left"><div class="badge">3</div><div><div class="t1">Mensualidad 3</div><div class="t2">Octubre 2026 · 20% del total</div></div></div><div class="amt2">$4,700.00</div></div>
+        <div class="pay-row" style="animation-delay:.2s"><div class="left"><div class="badge">4</div><div><div class="t1">Mensualidad 4</div><div class="t2">Noviembre 2026 · 20% del total</div></div></div><div class="amt2">$4,700.00</div></div>
+        <div class="pay-row" style="animation-delay:.25s"><div class="left"><div class="badge">5</div><div><div class="t1">Mensualidad 5</div><div class="t2">Diciembre 2026 · 20% del total</div></div></div><div class="amt2">$4,700.00</div></div>
+      </div>
+    </div>
+
+    <!-- MODE: MENSUAL -->
+    <div class="price-stage reveal" id="mode-mensual" style="display:none;">
+      <div class="price-hero">
+        <span class="amt mono">$610</span>
+        <span class="unit">USD + IVA / mes · desarrollo + soporte todo incluido</span>
+      </div>
+      <p class="price-note">Modelo de suscripción: el desarrollo del MVP se financia como servicio mensual en lugar de un pago único, sin desembolso inicial grande. Continúa mientras Kenocia administre el proyecto.</p>
+      <div class="price-panels mode-single active">
+        <div class="pay-row" style="animation-delay:.05s"><div class="left"><div class="badge">✓</div><div><div class="t1">Desarrollo del MVP</div><div class="t2">Amortizado dentro del fee mensual</div></div></div><div class="amt2">Incluido</div></div>
+        <div class="pay-row" style="animation-delay:.1s"><div class="left"><div class="badge">✓</div><div><div class="t1">Infraestructura y hosting</div><div class="t2">Servidores, backups, SSL, monitoreo</div></div></div><div class="amt2">Incluido</div></div>
+        <div class="pay-row" style="animation-delay:.15s"><div class="left"><div class="badge">✓</div><div><div class="t1">Soporte continuo</div><div class="t2">Mientras Kenocia administre el proyecto</div></div></div><div class="amt2">Incluido</div></div>
+      </div>
+    </div>
+
+    <div class="support-card reveal">
+      <div>
+        <div class="tag">SOPORTE + INFRAESTRUCTURA</div>
+        <div style="font-weight:600; font-size:16px;">Vigente después del lanzamiento (modo pago único)</div>
+        <div class="support-list">
+          <span>Administración de servidores y hosting</span>
+          <span>Respaldos y recuperación de datos</span>
+          <span>Seguridad y certificado SSL</span>
+          <span>Almacenamiento en la nube</span>
+          <span>Escalabilidad y capacidad</span>
+          <span>Monitoreo y disponibilidad</span>
+        </div>
+      </div>
+      <div class="support-price">
+        <div class="amt3 mono">$750</div>
+        <div style="font-size:12.5px; color:var(--text-muted);">USD / mes + IVA</div>
+      </div>
+    </div>
+
+    <p class="disclaimer reveal">* Todos los precios son más IVA. La inversión no incluye comisiones del proveedor de pagos, cuentas de publicación en tiendas móviles, ni operación logística de entrega — estos costos son independientes y a cargo del cliente.</p>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- COMO TRABAJAMOS -->
+<section id="trabajamos" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">04 · Cómo trabajamos</div>
+      <h2 class="section-title">Nuestro proceso y lo que obtienes con la solución.</h2>
+    </div>
+
+    <div class="benefit-grid reveal">
+      <div class="benefit-card"><div class="ic">💰</div><p>Nuevo canal de ingresos para comercios a partir de excedente que hoy se pierde.</p></div>
+      <div class="benefit-card"><div class="ic">♻️</div><p>Reducción de desperdicio de alimentos y otros productos comerciales.</p></div>
+      <div class="benefit-card"><div class="ic">📈</div><p>Mayor visibilidad y tráfico de consumidores para los comercios afiliados.</p></div>
+      <div class="benefit-card"><div class="ic">⚡</div><p>Experiencia de compra simple y rápida para el consumidor final.</p></div>
+      <div class="benefit-card"><div class="ic">🎛️</div><p>Control centralizado de operación, pagos e indicadores desde Odoo.</p></div>
+      <div class="benefit-card"><div class="ic">🧱</div><p>Base tecnológica propia, documentada y escalable para crecer por etapas.</p></div>
+    </div>
+
+    <div class="process-strip reveal">
+      <div class="proc-item"><div class="lbl">Metodología</div><p>Agile/SCRUM con entregas quincenales — pruebas en vivo durante el desarrollo.</p></div>
+      <div class="proc-item"><div class="lbl">Infraestructura</div><p>Ambientes de desarrollo, integración y QA incluidos durante todo el proyecto.</p></div>
+      <div class="proc-item"><div class="lbl">Diseño</div><p>UX/UI priorizado: interfaces simples e intuitivas para consumidor y comercio.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- ENTREGABLES -->
+<section id="entregables" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">05 · Entregables y garantía</div>
+      <h2 class="section-title">Lo que recibes al final del proyecto.</h2>
+      <p class="section-sub">La propiedad intelectual será completamente del cliente; Kenocia actúa como desarrollador y proveedor de servicios.</p>
+    </div>
+
+    <div class="deliver-grid reveal">
+      <div class="deliver-card"><div class="ic">💻</div><b>Código fuente</b></div>
+      <div class="deliver-card"><div class="ic">🗄️</div><b>Esquema de base de datos</b></div>
+      <div class="deliver-card"><div class="ic">📄</div><b>Documentación técnica</b></div>
+      <div class="deliver-card"><div class="ic">📲</div><b>Apps publicadas</b></div>
+    </div>
+
+    <div class="warranty-band reveal">
+      <div class="num">1 AÑO</div>
+      <div class="txt">Garantizamos la calidad del desarrollo por un año natural sin costo adicional, siempre que el código no sea modificado por terceros ajenos a Kenocia.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="wrap reveal">
+    <h2>Llevemos <span class="grad">APP YEGO</span><br>de la idea a producción.</h2>
+    <p>Propuesta vigente 30 días naturales · Kenocia (Kenosis Company)</p>
+    <div class="hero-cta" style="justify-content:center; margin-top:36px;">
+      <a href="#inversion" class="btn btn-primary">Revisar inversión</a>
+      <a href="mailto:contacto@kenocia.com" class="btn btn-ghost">Escribir a Kenocia</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap inner">
+    <div class="fbrand">
+      <img src="assets/kenocia-logo.png" alt="Kenocia">
+      <span>KENOCIA <span style="color:var(--text-dim); font-weight:500;">— Kenosis Company</span></span>
+    </div>
+    <div class="fmeta">Propuesta de Proyecto · APP YEGO · Agosto 2026</div>
+  </div>
+</footer>
+
+<script>
+// scroll progress
+const progress = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progress.style.width = scrolled + '%';
+}, { passive:true });
+
+// nav active link
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.navlinks a');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector('.navlinks a[href="#'+entry.target.id+'"]');
+      if(link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-40% 0px -50% 0px' });
+sections.forEach(s => navObserver.observe(s));
+
+// reveal on scroll
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){ entry.target.classList.add('in'); revealObserver.unobserve(entry.target); }
+  });
+}, { threshold:.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// tabs
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// pricing toggle
+const toggleBtns = document.querySelectorAll('#pricingToggle button');
+const slider = document.getElementById('pricingSlider');
+const modeUnico = document.getElementById('mode-unico');
+const modeMensual = document.getElementById('mode-mensual');
+function positionSlider(btn){
+  slider.style.width = btn.offsetWidth + 'px';
+  slider.style.transform = 'translateX(' + btn.offsetLeft + 'px)';
+}
+window.addEventListener('load', () => positionSlider(document.querySelector('#pricingToggle button.active')));
+toggleBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    toggleBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    positionSlider(btn);
+    if(btn.dataset.mode === 'unico'){
+      modeUnico.style.display = ''; modeMensual.style.display = 'none';
+    } else {
+      modeMensual.style.display = ''; modeUnico.style.display = 'none';
+    }
+  });
+});
+</script>
+</body>
+</html>
