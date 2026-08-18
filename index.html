@@ -124,10 +124,39 @@ section{ position:relative; z-index:1; }
   position:relative; width:min(420px,90%); aspect-ratio:1;
   display:flex; align-items:center; justify-content:center;
 }
-.hero-orb .ring{ position:absolute; inset:0; border-radius:50%; border:1px solid var(--border); animation:spin 70s linear infinite; }
-.hero-orb .ring.r2, .hero-orb .ring.r3{ display:none; }
+.hero-orb .ring{ position:absolute; border-radius:50%; }
+.hero-orb .ring-outer{ inset:0; border:1px solid var(--border); }
+.hero-orb .ring-dash{
+  inset:34px; border:1px dashed rgba(34,198,183,.35);
+  animation:spin 26s linear infinite;
+}
 @keyframes spin{ to{ transform:rotate(360deg); } }
-.hero-orb .glow{ position:absolute; inset:70px; border-radius:50%; background:var(--grad-soft); filter:blur(36px); opacity:.7; }
+.hero-orb .glow{
+  position:absolute; inset:70px; border-radius:50%; background:var(--grad-soft);
+  filter:blur(36px); opacity:.6; animation:pulse-glow 4.5s ease-in-out infinite;
+}
+@keyframes pulse-glow{ 0%,100%{ opacity:.5; transform:scale(1); } 50%{ opacity:.85; transform:scale(1.06); } }
+
+.hero-orb .orb-scan{
+  position:absolute; inset:0; border-radius:50%; overflow:hidden;
+  -webkit-mask-image: radial-gradient(circle, #000 60%, transparent 72%);
+  mask-image: radial-gradient(circle, #000 60%, transparent 72%);
+  animation:spin 9s linear infinite;
+}
+.hero-orb .orb-scan::before{
+  content:""; position:absolute; inset:-10%;
+  background:conic-gradient(from 0deg, transparent 0deg, transparent 300deg, rgba(34,198,183,.28) 336deg, rgba(126,90,234,.22) 356deg, transparent 360deg);
+}
+
+.hero-orb .orbit{ position:absolute; border-radius:50%; animation:spin linear infinite; }
+.hero-orb .orbit-1{ inset:14px; animation-duration:16s; }
+.hero-orb .orbit-2{ inset:52px; animation-duration:22s; animation-direction:reverse; }
+.hero-orb .node{
+  position:absolute; top:50%; left:0; width:7px; height:7px; margin-top:-3.5px;
+  border-radius:50%; background:var(--teal-2); box-shadow:0 0 12px 2px var(--teal-2);
+}
+.hero-orb .node-b{ background:var(--violet); box-shadow:0 0 10px 2px var(--violet); width:5px; height:5px; margin-top:-2.5px; }
+
 .hero-orb img{ position:relative; width:42%; filter:drop-shadow(0 20px 50px rgba(46,78,219,.25)); animation:float 7s ease-in-out infinite; }
 @keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
 
@@ -329,6 +358,49 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
 }
 @media (pointer:coarse){ #cursor-dot, #cursor-ring{ display:none; } }
 
+/* ---------- POR QUE KENOCIA (comparativo) ---------- */
+.compare-table{ margin-top:48px; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; }
+.compare-row{ display:grid; grid-template-columns:1fr 1.3fr 1.3fr; }
+.compare-row:not(:last-child){ border-bottom:1px solid var(--border); }
+.compare-cell{ padding:18px 20px; font-size:13.5px; color:var(--text-muted); display:flex; align-items:center; }
+.compare-lbl{ color:var(--text); font-weight:600; font-size:13px; background:var(--surface); }
+.compare-head .compare-cell{ font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-dim); padding:14px 20px; }
+.compare-cell--brand{ color:var(--text); font-weight:500; background:var(--grad-soft); position:relative; }
+.compare-head .compare-cell--brand{ color:var(--teal-2); font-weight:700; }
+@media (max-width:760px){
+  .compare-row{ grid-template-columns:1fr; }
+  .compare-cell{ padding:10px 18px; }
+  .compare-lbl{ padding-top:16px; font-size:12px; color:var(--text-dim); background:transparent; }
+  .compare-row:not(:last-child){ border-bottom:1px solid var(--border-2); padding-bottom:8px; }
+}
+
+/* ---------- TRAYECTORIA ---------- */
+.track-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:48px; }
+@media (max-width:860px){ .track-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:520px){ .track-grid{ grid-template-columns:1fr; } }
+.track-card{ padding:24px; border-radius:14px; background:var(--surface); border:1px solid var(--border); }
+.track-yr{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15px; color:var(--teal-2); margin-bottom:10px; }
+.track-card p{ font-size:13.5px; color:var(--text-muted); line-height:1.5; }
+
+/* ---------- METODOLOGIA (5 fases) ---------- */
+.method-steps{ display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin-top:48px; margin-bottom:56px; background:var(--border); border-radius:var(--radius-sm); overflow:hidden; }
+@media (max-width:900px){ .method-steps{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .method-steps{ grid-template-columns:1fr; } }
+.method-step{ background:var(--surface); padding:24px 20px; }
+.ms-n{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-dim); }
+.ms-t{ font-weight:600; font-size:14.5px; margin:10px 0 8px; }
+.method-step p{ font-size:12.5px; color:var(--text-muted); line-height:1.5; }
+
+/* ---------- RECOMENDACIONES ---------- */
+.reco-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:48px; }
+@media (max-width:900px){ .reco-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .reco-grid{ grid-template-columns:1fr; } }
+.reco-card{ padding:24px; border-radius:14px; background:var(--surface); border:1px solid var(--border); transition:border-color .25s ease, transform .25s ease; }
+.reco-card:hover{ border-color:var(--teal); transform:translateY(-3px); }
+.reco-n{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--teal-2); }
+.reco-t{ font-weight:600; font-size:15px; margin:10px 0 8px; }
+.reco-card p{ font-size:13px; color:var(--text-muted); line-height:1.55; }
+
 /* section dividers */
 .divider{ height:1px; background:var(--border); }
 </style>
@@ -349,10 +421,12 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
       <a href="#alcance">Alcance</a>
       <a href="#diseno">Diseño</a>
       <a href="#plataforma">Plataforma</a>
+      <a href="#diferencial">Diferencial</a>
       <a href="#inversion">Inversión</a>
       <a href="#trabajamos">Cómo trabajamos</a>
       <a href="#entregables">Entregables</a>
     </div>
+    <a href="assets/Cotizacion_Kenocia_APP_YEGO.pdf" download class="btn btn-ghost" style="padding:10px 16px; font-size:13px;">↓ PDF</a>
     <a href="#inversion" class="btn btn-primary" style="padding:10px 18px; font-size:13px;">Ver inversión</a>
   </div>
   <div class="progress" id="scrollProgress"></div>
@@ -377,10 +451,12 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
     </div>
     <div class="hero-orb-wrap">
       <div class="hero-orb">
-        <div class="ring"></div>
-        <div class="ring r2"></div>
-        <div class="ring r3"></div>
+        <div class="orb-scan"></div>
+        <div class="ring ring-outer"></div>
+        <div class="ring ring-dash"></div>
         <div class="glow"></div>
+        <div class="orbit orbit-1"><span class="node"></span></div>
+        <div class="orbit orbit-2"><span class="node node-b"></span></div>
         <img src="assets/kenocia-logo.png" alt="Kenocia logo">
       </div>
     </div>
@@ -671,6 +747,132 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
     </div>
 
     <p class="disclaimer reveal">* Todos los precios son más IVA. La inversión de desarrollo no incluye comisiones del proveedor de pagos, cuentas de publicación en tiendas móviles, ni operación logística de entrega — estos costos son independientes y a cargo del cliente. El fee de soporte y alojamiento es un cargo aparte, recurrente mientras Kenocia administre la plataforma.</p>
+
+    <a href="assets/Cotizacion_Kenocia_APP_YEGO.pdf" download class="btn btn-primary reveal" style="margin-top:28px;">↓ Descargar cotización en PDF</a>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- POR QUE KENOCIA -->
+<section id="diferencial" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Por qué Kenocia</div>
+      <h2 class="section-title">No partimos de cero.</h2>
+      <p class="section-sub">La mayoría de las agencias construyen cada proyecto desde una hoja en blanco. Kenocia ya tiene piezas de este sistema en producción — APP YEGO las reutiliza y extiende.</p>
+    </div>
+
+    <div class="compare-table reveal">
+      <div class="compare-row compare-head">
+        <div class="compare-cell"></div>
+        <div class="compare-cell">Agencia de desarrollo típica</div>
+        <div class="compare-cell compare-cell--brand">Kenocia</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell compare-lbl">Punto de partida</div>
+        <div class="compare-cell">Código nuevo desde cero</div>
+        <div class="compare-cell compare-cell--brand">Módulos propios ya construidos y en producción, reutilizados</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell compare-lbl">Enfoque</div>
+        <div class="compare-cell">Ejecuta el requerimiento tal como se pide</div>
+        <div class="compare-cell compare-cell--brand">Entiende el negocio primero, luego diseña la solución</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell compare-lbl">Contexto fiscal local</div>
+        <div class="compare-cell">Investiga sobre la marcha</div>
+        <div class="compare-cell compare-cell--brand">Módulo fiscal Honduras (SAR) ya desarrollado y en uso</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell compare-lbl">Post-lanzamiento</div>
+        <div class="compare-cell">Handoff y soporte por ticket</div>
+        <div class="compare-cell compare-cell--brand">Mismo equipo que construyó, administra la operación</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell compare-lbl">Experiencia técnica</div>
+        <div class="compare-cell">Variable según el proyecto</div>
+        <div class="compare-cell compare-cell--brand">Backend desde 2005, apps móviles desde 2010</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- TRAYECTORIA -->
+<section id="trayectoria" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Trayectoria</div>
+      <h2 class="section-title">Años de experiencia, aplicados a este proyecto.</h2>
+      <p class="section-sub">Kenocia (Kenosis Company) desarrolla software a la medida sobre diversas tecnologías — APP YEGO parte de esa misma experiencia.</p>
+    </div>
+
+    <div class="track-grid reveal">
+      <div class="track-card">
+        <div class="track-yr">2005</div>
+        <p>Inicio del desarrollo backend — arquitecturas de servidor, bases de datos e integraciones.</p>
+      </div>
+      <div class="track-card">
+        <div class="track-yr">2010</div>
+        <p>Inicio del desarrollo de aplicaciones móviles — iOS, Android y multiplataforma.</p>
+      </div>
+      <div class="track-card">
+        <div class="track-yr">Multitecnología</div>
+        <p>Experiencia sobre distintos stacks y frameworks — la tecnología se elige según el proyecto, no al revés.</p>
+      </div>
+      <div class="track-card">
+        <div class="track-yr">En producción</div>
+        <p>Integraciones de pagos, inventario e indicadores en tiempo real ya operando para clientes activos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- RECOMENDACIONES -->
+<section id="recomendaciones" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Recomendaciones</div>
+      <h2 class="section-title">Lo que recomendamos, basado en experiencia real.</h2>
+      <p class="section-sub">No es la única forma de construirlo — es la forma que, en nuestra experiencia, reduce el riesgo de un marketplace transaccional en su primera versión.</p>
+    </div>
+
+    <div class="reco-grid reveal">
+      <div class="reco-card">
+        <div class="reco-n">01</div>
+        <div class="reco-t">Empezar con un piloto controlado</div>
+        <p>Lanzar con pocos comercios reales antes de abrir a todos — valida el modelo de negocio sin arriesgar la operación completa desde el día uno.</p>
+      </div>
+      <div class="reco-card">
+        <div class="reco-n">02</div>
+        <div class="reco-t">Control de concurrencia desde el diseño</div>
+        <p>La reserva simultánea de la misma oferta por varios usuarios es el riesgo técnico más común en un marketplace — se resuelve en la arquitectura, no después.</p>
+      </div>
+      <div class="reco-card">
+        <div class="reco-n">03</div>
+        <div class="reco-t">Liquidación semi-manual antes que automática</div>
+        <p>Automatizar pagos a comercios desde el primer día agrega complejidad innecesaria — un reporte de liquidación con revisión manual es más seguro para una V1.</p>
+      </div>
+      <div class="reco-card">
+        <div class="reco-n">04</div>
+        <div class="reco-t">Código de recolección de un solo uso</div>
+        <p>Un QR o PIN que expira evita fraude en la entrega sin necesitar validación biométrica ni hardware adicional.</p>
+      </div>
+      <div class="reco-card">
+        <div class="reco-n">05</div>
+        <div class="reco-t">Auditoría de todo evento financiero</div>
+        <p>Cada cambio de estado en pagos y reservas debe quedar registrado — es la diferencia entre poder explicar una discrepancia y no poder hacerlo.</p>
+      </div>
+      <div class="reco-card">
+        <div class="reco-n">06</div>
+        <div class="reco-t">Separar el MVP de las ideas de fase 2</div>
+        <p>Cupones, fidelización, IA y multi-país suenan bien desde el inicio, pero diluyen el enfoque — se agregan una vez el modelo esté validado.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -681,7 +883,36 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
   <div class="wrap">
     <div class="reveal">
       <div class="eyebrow">04 · Cómo trabajamos</div>
-      <h2 class="section-title">Nuestro proceso y lo que obtienes con la solución.</h2>
+      <h2 class="section-title">Negocio primero, tecnología después.</h2>
+      <p class="section-sub">Nuestra metodología propia — la misma que usamos en cada implementación de Kenocia.</p>
+    </div>
+
+    <div class="method-steps reveal">
+      <div class="method-step">
+        <div class="ms-n">01</div>
+        <div class="ms-t">Relevamiento y diagnóstico</div>
+        <p>Cómo opera hoy el negocio, problemas reales, estructura y limitaciones actuales.</p>
+      </div>
+      <div class="method-step">
+        <div class="ms-n">02</div>
+        <div class="ms-t">Diseño funcional</div>
+        <p>Procesos futuros, reglas operativas, qué es estándar y qué requiere personalización.</p>
+      </div>
+      <div class="method-step">
+        <div class="ms-n">03</div>
+        <div class="ms-t">Arquitectura técnica</div>
+        <p>Infraestructura, seguridad, ambientes e integraciones — antes de escribir código.</p>
+      </div>
+      <div class="method-step">
+        <div class="ms-n">04</div>
+        <div class="ms-t">Desarrollo</div>
+        <p>Módulos, automatizaciones, reportes e integraciones sobre la base ya construida.</p>
+      </div>
+      <div class="method-step">
+        <div class="ms-n">05</div>
+        <div class="ms-t">Validación y maduración</div>
+        <p>Optimización, control de errores y trazabilidad posterior al lanzamiento.</p>
+      </div>
     </div>
 
     <div class="benefit-grid reveal">
@@ -691,12 +922,6 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
       <div class="benefit-card"><div class="ic">⚡</div><p>Experiencia de compra simple y rápida para el consumidor final.</p></div>
       <div class="benefit-card"><div class="ic">🎛️</div><p>Control centralizado de operación, pagos e indicadores desde Odoo.</p></div>
       <div class="benefit-card"><div class="ic">🧱</div><p>Base tecnológica propia, documentada y escalable para crecer por etapas.</p></div>
-    </div>
-
-    <div class="process-strip reveal">
-      <div class="proc-item"><div class="lbl">Metodología</div><p>Agile/SCRUM con entregas quincenales — pruebas en vivo durante el desarrollo.</p></div>
-      <div class="proc-item"><div class="lbl">Infraestructura</div><p>Ambientes de desarrollo, integración y QA incluidos durante todo el proyecto.</p></div>
-      <div class="proc-item"><div class="lbl">Diseño</div><p>UX/UI priorizado: interfaces simples e intuitivas para consumidor y comercio.</p></div>
     </div>
   </div>
 </section>
