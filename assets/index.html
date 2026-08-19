@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APP YEGO — Propuesta de Proyecto · Kenocia</title>
+<meta name="description" content="Propuesta de proyecto APP YEGO, desarrollada por Kenocia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#080B14;
+  --surface:#0F1424;
+  --surface-2:#151B33;
+  --surface-3:#1B2240;
+  --border:rgba(255,255,255,.08);
+  --border-2:rgba(255,255,255,.14);
+  --text:#EEF0F9;
+  --text-muted:#8C93B4;
+  --text-dim:#5A6188;
+  --blue:#2E4EDB;
+  --blue-2:#4C63E8;
+  --violet:#7E5AEA;
+  --teal:#22C6B7;
+  --teal-2:#4FE0C9;
+  --grad-main: linear-gradient(115deg, var(--blue) 0%, var(--violet) 52%, var(--teal) 100%);
+  --grad-soft: linear-gradient(115deg, rgba(46,78,219,.16) 0%, rgba(126,90,234,.16) 52%, rgba(34,198,183,.16) 100%);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --maxw: 1180px;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:.001ms !important; transition-duration:.001ms !important;} }
+
+body{
+  background:var(--ink);
+  color:var(--text);
+  font-family:'Inter', sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(55vw 55vw at 88% -8%, rgba(46,78,219,.13), transparent 60%),
+    radial-gradient(40vw 40vw at 50% 105%, rgba(34,198,183,.07), transparent 60%);
+}
+h1,h2,h3,h4{ font-family:'Sora', sans-serif; letter-spacing:-.01em; }
+.mono{ font-family:'JetBrains Mono', monospace; }
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; position:relative; z-index:1; }
+a{color:inherit;}
+::selection{ background:var(--violet); color:#fff; }
+
+/* ---------- NAV ---------- */
+#nav{
+  position:sticky; top:0; z-index:100;
+  backdrop-filter:blur(14px);
+  background:rgba(8,11,20,.72);
+  border-bottom:1px solid var(--border);
+}
+#nav .inner{ display:flex; align-items:center; justify-content:space-between; height:72px; }
+.brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+.brand img{ height:34px; width:34px; object-fit:contain; }
+.brand .wordmark{ font-family:'Sora',sans-serif; font-weight:700; font-size:16px; letter-spacing:.02em; white-space:nowrap; }
+.brand .wordmark span{ color:var(--text-muted); font-weight:500; }
+@media (max-width:480px){ .brand .wordmark span{ display:none; } }
+#nav .progress{ position:absolute; left:0; bottom:-1px; height:2px; width:0%; background:var(--grad-main); transition:width .1s linear; }
+.navlinks{ display:flex; gap:6px; align-items:center; }
+.navlinks a{
+  font-size:13.5px; color:var(--text-muted); text-decoration:none; padding:9px 14px;
+  border-radius:100px; transition:all .2s ease; font-weight:500;
+}
+.navlinks a:hover, .navlinks a.active{ color:var(--text); background:var(--surface-2); }
+@media (max-width:860px){ .navlinks{ display:none; } }
+
+/* ---------- SECTION SCAFFOLD ---------- */
+section{ position:relative; z-index:1; }
+.section-pad{ padding:120px 0; }
+@media (max-width:768px){ .section-pad{ padding:76px 0; } }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--teal-2); margin-bottom:18px;
+}
+.eyebrow::before{ content:""; width:20px; height:1px; background:var(--teal-2); }
+.section-title{ font-size:clamp(28px,4vw,44px); font-weight:700; line-height:1.1; max-width:820px; }
+.section-sub{ color:var(--text-muted); font-size:17px; max-width:640px; margin-top:16px; }
+.reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+.reveal.in{ opacity:1; transform:translateY(0); }
+
+/* ---------- HERO ---------- */
+#hero{ min-height:100vh; display:flex; align-items:center; padding-top:72px; }
+.hero-grid{ display:grid; grid-template-columns:1.1fr .8fr; gap:60px; align-items:center; width:100%; padding:60px 0; }
+@media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; gap:40px; } }
+.hero-tag{
+  display:inline-flex; align-items:center; gap:10px; padding:8px 16px 8px 8px;
+  border:1px solid var(--border-2); border-radius:100px; background:var(--surface);
+  font-size:13px; color:var(--text-muted); margin-bottom:28px;
+}
+.hero-tag .dot{ width:22px; height:22px; border-radius:50%; background:var(--grad-main); display:flex; align-items:center; justify-content:center; font-size:11px; }
+#hero h1{ font-size:clamp(40px,6.4vw,74px); font-weight:800; line-height:.98; }
+.grad{ background:var(--grad-main); -webkit-background-clip:text; background-clip:text; color:transparent; }
+#hero p.lead{ font-size:18px; color:var(--text-muted); max-width:520px; margin-top:26px; }
+.hero-meta{ display:flex; gap:32px; margin-top:44px; flex-wrap:wrap; }
+.hero-meta .item .k{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.06em; }
+.hero-meta .item .v{ font-size:17px; font-weight:600; margin-top:4px; }
+.hero-cta{ display:flex; gap:14px; margin-top:44px; flex-wrap:wrap; }
+.btn{
+  display:inline-flex; align-items:center; gap:8px; padding:14px 24px; border-radius:100px;
+  font-weight:600; font-size:14.5px; text-decoration:none; cursor:pointer; border:1px solid transparent;
+  transition:all .25s ease;
+}
+.btn-primary{ background:var(--grad-main); color:#fff; }
+.btn-primary:hover{ filter:brightness(1.12); transform:translateY(-1px); }
+.btn-ghost{ border-color:var(--border-2); color:var(--text); background:transparent; }
+.btn-ghost:hover{ background:var(--surface-2); }
+
+.hero-orb-wrap{ position:relative; display:flex; align-items:center; justify-content:center; }
+.hero-orb{
+  position:relative; width:min(420px,90%); aspect-ratio:1;
+  display:flex; align-items:center; justify-content:center;
+}
+.hero-orb .ring{ position:absolute; border-radius:50%; }
+.hero-orb .ring-outer{ inset:0; border:1px solid var(--border); }
+.hero-orb .ring-dash{
+  inset:34px; border:1px dashed rgba(34,198,183,.35);
+  animation:spin 26s linear infinite;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.hero-orb .glow{
+  position:absolute; inset:70px; border-radius:50%; background:var(--grad-soft);
+  filter:blur(36px); opacity:.6; animation:pulse-glow 4.5s ease-in-out infinite;
+}
+@keyframes pulse-glow{ 0%,100%{ opacity:.5; transform:scale(1); } 50%{ opacity:.85; transform:scale(1.06); } }
+
+.hero-orb .orb-scan{
+  position:absolute; inset:0; border-radius:50%; overflow:hidden;
+  -webkit-mask-image: radial-gradient(circle, #000 60%, transparent 72%);
+  mask-image: radial-gradient(circle, #000 60%, transparent 72%);
+  animation:spin 9s linear infinite;
+}
+.hero-orb .orb-scan::before{
+  content:""; position:absolute; inset:-10%;
+  background:conic-gradient(from 0deg, transparent 0deg, transparent 300deg, rgba(34,198,183,.28) 336deg, rgba(126,90,234,.22) 356deg, transparent 360deg);
+}
+
+.hero-orb .orbit{ position:absolute; border-radius:50%; animation:spin linear infinite; }
+.hero-orb .orbit-1{ inset:14px; animation-duration:16s; }
+.hero-orb .orbit-2{ inset:52px; animation-duration:22s; animation-direction:reverse; }
+.hero-orb .node{
+  position:absolute; top:50%; left:0; width:7px; height:7px; margin-top:-3.5px;
+  border-radius:50%; background:var(--teal-2); box-shadow:0 0 12px 2px var(--teal-2);
+}
+.hero-orb .node-b{ background:var(--violet); box-shadow:0 0 10px 2px var(--violet); width:5px; height:5px; margin-top:-2.5px; }
+
+.hero-orb img{ position:relative; width:42%; filter:drop-shadow(0 20px 50px rgba(46,78,219,.25)); animation:float 7s ease-in-out infinite; }
+@keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
+
+/* ---------- CARDS shared ---------- */
+.card{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px; }
+.card:hover{ border-color:var(--border-2); }
+.grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+@media (max-width:860px){ .grid-2,.grid-3{ grid-template-columns:1fr; } }
+
+/* ---------- ANTEPROYECTO ---------- */
+.ante-grid{ display:grid; grid-template-columns:.95fr 1.05fr; gap:56px; margin-top:56px; align-items:start; }
+@media (max-width:900px){ .ante-grid{ grid-template-columns:1fr; } }
+.ante-list{ display:flex; flex-direction:column; gap:0; }
+.ante-item{ padding:22px 0; border-top:1px solid var(--border); }
+.ante-item:last-child{ border-bottom:1px solid var(--border); }
+.ante-item .n{ font-family:'JetBrains Mono',monospace; color:var(--teal-2); font-size:13px; }
+.ante-item h4{ font-size:18px; margin-top:6px; }
+.ante-item p{ color:var(--text-muted); font-size:14.5px; margin-top:8px; }
+.ante-visual{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:32px; position:sticky; top:100px; }
+.ante-visual h4{ font-size:14px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-dim); font-family:'JetBrains Mono',monospace; font-weight:500; margin-bottom:20px; }
+.flow-node{ display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:12px; background:var(--surface-2); margin-bottom:10px; border:1px solid var(--border); }
+.flow-node .ic{ width:34px; height:34px; border-radius:9px; background:var(--grad-soft); display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+.flow-node b{ font-size:14px; display:block; }
+.flow-node span{ font-size:12.5px; color:var(--text-muted); }
+.flow-line{ width:1px; height:16px; background:var(--border-2); margin-left:34px; }
+.excl-tag{ display:inline-flex; align-items:center; gap:6px; margin-top:16px; padding:8px 12px; border-radius:10px; background:rgba(255,150,90,.08); border:1px solid rgba(255,150,90,.25); color:#FFB088; font-size:12.5px; }
+
+/* ---------- TABS (Alcance) ---------- */
+.tabs{ display:flex; gap:10px; margin-top:44px; flex-wrap:wrap; }
+.tab-btn{
+  padding:12px 20px; border-radius:100px; border:1px solid var(--border-2); background:var(--surface);
+  color:var(--text-muted); font-weight:600; font-size:14px; cursor:pointer; transition:all .25s ease;
+  display:flex; align-items:center; gap:8px;
+}
+.tab-btn:hover{ color:var(--text); }
+.tab-btn.active{ background:var(--grad-main); color:#fff; border-color:transparent; }
+.tab-panels{ margin-top:32px; }
+.tab-panel{ display:none; }
+.tab-panel.active{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+@media (max-width:700px){ .tab-panel.active{ grid-template-columns:1fr; } }
+.cap-item{
+  display:flex; align-items:center; gap:12px; padding:16px 18px; background:var(--surface);
+  border:1px solid var(--border); border-radius:12px; font-size:14.5px;
+}
+.cap-item .chk{ width:20px; height:20px; border-radius:6px; background:var(--grad-soft); color:var(--teal-2); display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+
+/* ---------- DESIGN / JOURNEY STEPPER ---------- */
+.journey{ margin-top:56px; }
+.journey-phase{ margin-bottom:40px; }
+.journey-phase .ph-label{ font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--teal-2); text-transform:uppercase; letter-spacing:.06em; margin-bottom:16px; }
+.journey-steps{ display:flex; gap:12px; overflow-x:auto; padding-bottom:8px; }
+.jstep{
+  min-width:150px; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px;
+  transition:all .25s ease; cursor:default;
+}
+.jstep:hover{ border-color:var(--violet); transform:translateY(-3px); }
+.jstep .num{ font-family:'JetBrains Mono',monospace; color:var(--text-dim); font-size:12px; }
+.jstep .lbl{ font-size:13.5px; margin-top:8px; font-weight:600; line-height:1.35; }
+
+/* ---------- ECOSYSTEM DIAGRAM ---------- */
+.eco{ margin-top:56px; display:flex; flex-direction:column; align-items:center; gap:0; }
+.eco-row{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.eco-node{
+  width:190px; padding:18px; border-radius:14px; background:var(--surface); border:1px solid var(--border);
+  text-align:left; font-size:13px;
+}
+.eco-node.core{ background:var(--grad-main); color:#fff; border-color:transparent; }
+.eco-node.excl{ background:rgba(255,150,90,.06); border-color:rgba(255,150,90,.3); }
+.eco-node b{ display:block; font-size:14px; margin-bottom:6px; }
+.eco-node.core b{ color:#fff; }
+.eco-node span{ color:var(--text-muted); font-size:12px; line-height:1.4; }
+.eco-node.core span{ color:rgba(255,255,255,.85); }
+.eco-node.excl span{ color:#FFB088; }
+.eco-vline{ width:1px; height:28px; background:var(--border-2); }
+
+/* ---------- INVERSION (signature interactive) ---------- */
+.pricing-toggle{
+  display:inline-flex; padding:5px; background:var(--surface); border:1px solid var(--border-2); border-radius:100px;
+  margin-top:40px; position:relative;
+}
+.pricing-toggle button{
+  position:relative; z-index:2; padding:12px 26px; border-radius:100px; border:none; background:transparent;
+  color:var(--text-muted); font-weight:600; font-size:14px; cursor:pointer; font-family:'Inter',sans-serif;
+  transition:color .3s ease;
+}
+.pricing-toggle button.active{ color:#fff; }
+.pricing-toggle .slider{
+  position:absolute; top:5px; left:5px; height:calc(100% - 10px); border-radius:100px; background:var(--grad-main);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1), width .35s cubic-bezier(.2,.8,.2,1); z-index:1;
+}
+.price-stage{ margin-top:52px; }
+.price-hero{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+.price-hero .amt{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:clamp(44px,7vw,72px); background:var(--grad-main); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.price-hero .unit{ font-size:16px; color:var(--text-muted); }
+.price-note{ color:var(--text-muted); margin-top:12px; font-size:15px; max-width:560px; }
+.price-panels{ display:grid; grid-template-columns:1fr; gap:14px; margin-top:36px; }
+.price-panels.mode-single{ display:none; }
+.price-panels.mode-single.active{ display:grid; }
+.pay-row{
+  display:flex; align-items:center; justify-content:space-between; padding:18px 22px; background:var(--surface);
+  border:1px solid var(--border); border-radius:14px; opacity:0; transform:translateX(-10px); animation:slideIn .5s ease forwards;
+}
+@keyframes slideIn{ to{ opacity:1; transform:translateX(0);} }
+.pay-row .left{ display:flex; align-items:center; gap:16px; }
+.pay-row .badge{ width:34px; height:34px; border-radius:9px; background:var(--grad-soft); color:var(--teal-2); display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600; }
+.pay-row .t1{ font-weight:600; font-size:14.5px; }
+.pay-row .t2{ font-size:12.5px; color:var(--text-muted); }
+.pay-row .amt2{ font-family:'JetBrains Mono',monospace; font-weight:600; font-size:15px; }
+.support-card{
+  margin-top:20px; padding:26px; border-radius:16px; background:var(--surface); border:1px solid var(--border);
+  display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap;
+}
+.support-card .tag{ display:inline-block; padding:5px 12px; border-radius:100px; background:var(--surface-3); font-size:11.5px; font-family:'JetBrains Mono',monospace; color:var(--teal-2); margin-bottom:10px; }
+.support-list{ display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:14px; }
+.support-list span{ font-size:13px; color:var(--text-muted); display:flex; align-items:center; gap:7px; }
+.support-list span::before{ content:"✓"; color:var(--teal-2); font-weight:700; }
+.support-price{ text-align:right; }
+.support-price .amt3{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:26px; }
+.disclaimer{ margin-top:28px; font-size:12.5px; color:var(--text-dim); }
+
+/* ---------- COMO TRABAJAMOS ---------- */
+.benefit-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:48px; }
+@media (max-width:860px){ .benefit-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .benefit-grid{ grid-template-columns:1fr; } }
+.benefit-card{ padding:24px; border-radius:16px; background:var(--surface); border:1px solid var(--border); transition:all .3s ease; }
+.benefit-card:hover{ transform:translateY(-4px); border-color:var(--border-2); box-shadow:0 20px 40px -20px rgba(46,78,219,.3); }
+.benefit-card .ic{ width:38px; height:38px; border-radius:10px; background:var(--grad-soft); display:flex; align-items:center; justify-content:center; margin-bottom:14px; font-size:16px; }
+.benefit-card p{ font-size:14px; color:var(--text-muted); line-height:1.5; }
+.process-strip{ margin-top:60px; display:flex; gap:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.proc-item{ flex:1; padding:26px 20px; border-right:1px solid var(--border); }
+.proc-item:last-child{ border-right:none; }
+.proc-item .lbl{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--teal-2); text-transform:uppercase; letter-spacing:.05em; }
+.proc-item p{ margin-top:10px; font-size:13.5px; color:var(--text-muted); }
+@media (max-width:760px){ .process-strip{ flex-direction:column; } .proc-item{ border-right:none; border-bottom:1px solid var(--border); } }
+
+/* ---------- ENTREGABLES ---------- */
+.deliver-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:48px; }
+@media (max-width:860px){ .deliver-grid{ grid-template-columns:1fr 1fr; } }
+.deliver-card{ padding:22px; border-radius:14px; background:var(--surface); border:1px solid var(--border); text-align:center; }
+.deliver-card .ic{ width:44px; height:44px; margin:0 auto 14px; border-radius:12px; background:var(--grad-soft); display:flex; align-items:center; justify-content:center; font-size:19px; }
+.deliver-card b{ font-size:13.5px; display:block; }
+.warranty-band{
+  margin-top:56px; padding:36px; border-radius:20px; background:var(--grad-main); display:flex; align-items:center; gap:28px; flex-wrap:wrap; color:#fff;
+}
+.warranty-band .num{ font-family:'JetBrains Mono',monospace; font-weight:800; font-size:48px; line-height:1; }
+.warranty-band .txt{ font-size:14px; opacity:.92; max-width:520px; }
+
+/* ---------- FOOTER / CTA ---------- */
+#cta{ text-align:center; padding:140px 0; }
+#cta h2{ font-size:clamp(32px,5vw,54px); font-weight:800; max-width:680px; margin:0 auto; }
+#cta .grad{ background:var(--grad-main); -webkit-background-clip:text; background-clip:text; color:transparent; }
+#cta p{ color:var(--text-muted); margin-top:20px; }
+footer{ border-top:1px solid var(--border); padding:36px 0; }
+footer .inner{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+footer .fbrand{ display:flex; align-items:center; gap:10px; }
+footer .fbrand img{ height:24px; }
+footer .fbrand span{ font-family:'Sora',sans-serif; font-weight:700; font-size:14px; }
+footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
+
+/* ---------- PLATAFORMA / DASHBOARD ---------- */
+.platform-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:48px; }
+.platform-card{ grid-column:span 1; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:26px; transition:border-color .25s ease; }
+.platform-card:hover{ border-color:var(--border-2); }
+.platform-card--wide{ grid-column:span 2; }
+@media (max-width:820px){ .platform-grid{ grid-template-columns:1fr; } .platform-card--wide{ grid-column:span 1; } }
+.pc-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.pc-tag{ font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--teal-2); }
+.pc-live{ display:flex; align-items:center; gap:6px; font-size:11px; color:var(--text-dim); }
+.pc-live i{ width:6px; height:6px; border-radius:50%; background:var(--teal-2); display:inline-block; animation:pulse 1.8s ease-in-out infinite; }
+@keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } }
+.pc-desc{ font-size:13.5px; color:var(--text-muted); line-height:1.55; margin-bottom:18px; }
+.kpi-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+@media (max-width:600px){ .kpi-row{ grid-template-columns:1fr 1fr; } }
+.kpi-lbl{ font-size:11.5px; color:var(--text-dim); }
+.kpi-val{ font-family:'JetBrains Mono',monospace; font-weight:600; font-size:17px; margin-top:4px; }
+.kpi-bar{ height:3px; background:var(--surface-3); border-radius:3px; margin-top:10px; overflow:hidden; }
+.kpi-bar span{ display:block; height:100%; background:var(--grad-main); border-radius:3px; }
+.mini-steps{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:12px; color:var(--text-muted); }
+.mini-steps span{ padding:6px 11px; border-radius:100px; background:var(--surface-2); border:1px solid var(--border); }
+.mini-steps span.on{ background:var(--grad-main); color:#fff; border-color:transparent; }
+.mini-steps i{ color:var(--text-dim); font-style:normal; }
+.rank-list{ display:flex; flex-direction:column; gap:8px; }
+.rank-row{ display:flex; align-items:center; gap:10px; font-size:13px; padding:9px 0; border-bottom:1px solid var(--border); }
+.rank-row:last-child{ border-bottom:none; }
+.rank-row .rk{ width:20px; height:20px; border-radius:6px; background:var(--surface-3); display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--teal-2); flex-shrink:0; }
+.rank-row b{ margin-left:auto; font-family:'JetBrains Mono',monospace; font-weight:600; font-size:12.5px; color:var(--text-muted); }
+.stack-grid{ display:flex; flex-wrap:wrap; gap:8px; }
+.stack-item{ padding:9px 14px; border-radius:9px; background:var(--surface-2); border:1px solid var(--border); font-size:12.5px; font-family:'JetBrains Mono',monospace; color:var(--text); }
+
+/* ---------- CUSTOM CURSOR ---------- */
+@media (pointer:fine){
+  body{ cursor:none; }
+  a, button, .tab-btn, .jstep, .benefit-card, .deliver-card, .platform-card, .eco-node{ cursor:none; }
+  #cursor-dot, #cursor-ring{ position:fixed; top:0; left:0; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); will-change:transform; }
+  #cursor-dot{ width:6px; height:6px; border-radius:50%; background:var(--teal-2); transition:opacity .2s ease; }
+  #cursor-ring{ width:34px; height:34px; border-radius:50%; border:1px solid var(--border-2); transition:width .25s ease, height .25s ease, border-color .25s ease, background .25s ease; }
+  #cursor-ring.hover{ width:56px; height:56px; border-color:var(--teal-2); background:rgba(34,198,183,.08); }
+}
+@media (pointer:coarse){ #cursor-dot, #cursor-ring{ display:none; } }
+
+/* ---------- POR QUE KENOCIA (comparativo) ---------- */
+.compare-table{ margin-top:48px; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; }
+.compare-row{ display:grid; grid-template-columns:1fr 1.3fr 1.3fr; }
+.compare-row:not(:last-child){ border-bottom:1px solid var(--border); }
+.compare-cell{ padding:18px 20px; font-size:13.5px; color:var(--text-muted); display:flex; align-items:center; }
+.compare-lbl{ color:var(--text); font-weight:600; font-size:13px; background:var(--surface); }
+.compare-head .compare-cell{ font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-dim); padding:14px 20px; }
+.compare-cell--brand{ color:var(--text); font-weight:500; background:var(--grad-soft); position:relative; }
+.compare-head .compare-cell--brand{ color:var(--teal-2); font-weight:700; }
+@media (max-width:760px){
+  .compare-row{ grid-template-columns:1fr; }
+  .compare-cell{ padding:10px 18px; }
+  .compare-lbl{ padding-top:16px; font-size:12px; color:var(--text-dim); background:transparent; }
+  .compare-row:not(:last-child){ border-bottom:1px solid var(--border-2); padding-bottom:8px; }
+}
+
+/* ---------- TRAYECTORIA ---------- */
+.track-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:48px; }
+@media (max-width:860px){ .track-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:520px){ .track-grid{ grid-template-columns:1fr; } }
+.track-card{ padding:24px; border-radius:14px; background:var(--surface); border:1px solid var(--border); }
+.track-yr{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15px; color:var(--teal-2); margin-bottom:10px; }
+.track-card p{ font-size:13.5px; color:var(--text-muted); line-height:1.5; }
+
+/* ---------- METODOLOGIA (5 fases) ---------- */
+.method-steps{ display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin-top:48px; margin-bottom:56px; background:var(--border); border-radius:var(--radius-sm); overflow:hidden; }
+@media (max-width:900px){ .method-steps{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .method-steps{ grid-template-columns:1fr; } }
+.method-step{ background:var(--surface); padding:24px 20px; }
+.ms-n{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-dim); }
+.ms-t{ font-weight:600; font-size:14.5px; margin:10px 0 8px; }
+.method-step p{ font-size:12.5px; color:var(--text-muted); line-height:1.5; }
+
+/* ---------- RECOMENDACIONES ---------- */
+.reco-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:48px; }
+@media (max-width:900px){ .reco-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .reco-grid{ grid-template-columns:1fr; } }
+.reco-card{ padding:24px; border-radius:14px; background:var(--surface); border:1px solid var(--border); transition:border-color .25s ease, transform .25s ease; }
+.reco-card:hover{ border-color:var(--teal); transform:translateY(-3px); }
+.reco-n{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--teal-2); }
+.reco-t{ font-weight:600; font-size:15px; margin:10px 0 8px; }
+.reco-card p{ font-size:13px; color:var(--text-muted); line-height:1.55; }
+
+/* ---------- OTROS COSTOS ---------- */
+.cost-table{ width:100%; border-collapse:collapse; margin-top:16px; border:1px solid var(--border); border-radius:12px; overflow:hidden; font-size:13.5px; }
+.cost-table th{ text-align:left; background:var(--surface-2); color:var(--text-dim); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.05em; padding:12px 16px; font-weight:500; }
+.cost-table td{ padding:11px 16px; border-top:1px solid var(--border); color:var(--text-muted); }
+.cost-table tr:first-child td{ border-top:none; }
+.cost-table td:last-child{ text-align:right; font-family:'JetBrains Mono',monospace; color:var(--text); }
+.cost-table tr.cost-total td{ background:var(--grad-soft); color:var(--text); font-weight:600; }
+.cost-table tr.cost-total td:last-child{ color:var(--teal-2); }
+.cost-note{ font-size:12.5px; color:var(--text-dim); margin-top:12px; line-height:1.55; }
+
+.indirect-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media (max-width:700px){ .indirect-grid{ grid-template-columns:1fr; } }
+.indirect-item{ padding:14px 16px; border-radius:10px; background:var(--surface); border:1px solid var(--border); font-size:13px; color:var(--text-muted); position:relative; padding-left:34px; }
+.indirect-item::before{ content:"→"; position:absolute; left:14px; color:var(--teal-2); font-weight:700; }
+
+.invest-map{ display:grid; grid-template-columns:repeat(13,1fr); gap:6px; margin-top:8px; }
+@media (max-width:1100px){ .invest-map{ grid-template-columns:repeat(7,1fr); } }
+@media (max-width:640px){ .invest-map{ grid-template-columns:repeat(3,1fr); } }
+.invest-month{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 8px; text-align:center; }
+.im-launch{ background:var(--grad-main); border-color:transparent; }
+.im-lbl{ font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); }
+.im-launch .im-lbl{ color:rgba(255,255,255,.85); }
+.im-tags{ margin:8px 0; min-height:20px; display:flex; flex-direction:column; gap:3px; align-items:center; }
+.im-tags span{ font-size:9px; padding:2px 6px; border-radius:100px; font-weight:600; white-space:nowrap; }
+.tag-dev{ background:rgba(46,78,219,.18); color:#8FA3F5; }
+.tag-store{ background:rgba(126,90,234,.2); color:#C4AFF5; }
+.tag-sup{ background:rgba(34,198,183,.16); color:var(--teal-2); }
+.tag-launch{ background:rgba(255,255,255,.18); color:#fff; }
+.im-amt{ font-family:'JetBrains Mono',monospace; font-weight:600; font-size:12px; }
+.im-launch .im-amt{ color:#fff; }
+
+.invest-total{
+  margin-top:24px; padding:26px 28px; border-radius:16px; background:var(--surface); border:1px solid var(--border-2);
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;
+}
+.it-lbl{ font-weight:700; font-size:16px; }
+.it-sub{ font-size:12.5px; color:var(--text-muted); margin-top:4px; }
+.it-amt{ font-size:32px; font-weight:700; color:var(--teal-2); }
+
+/* ---------- INVERSION: acordeón de pagos ---------- */
+.pay-accordion{ margin-top:36px; border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+.pay-acc-item{ border-bottom:1px solid var(--border); background:var(--surface); }
+.pay-acc-item:last-child{ border-bottom:none; }
+.pay-acc-head{
+  width:100%; display:flex; justify-content:space-between; align-items:center; padding:18px 22px;
+  background:none; border:none; cursor:pointer; font-family:'Inter',sans-serif; text-align:left;
+}
+.pah-l{ display:flex; align-items:center; gap:14px; font-weight:600; font-size:14.5px; color:var(--text); }
+.pah-r{ display:flex; align-items:center; gap:10px; font-family:'JetBrains Mono',monospace; font-weight:600; font-size:14px; color:var(--text); }
+.chev{ font-style:normal; color:var(--text-dim); transition:transform .3s ease; display:inline-block; }
+.pay-acc-item.is-open .chev{ transform:rotate(180deg); color:var(--teal-2); }
+.pay-acc-body{ max-height:0; overflow:hidden; transition:max-height .35s ease, padding .35s ease; padding:0 22px; }
+.pay-acc-item.is-open .pay-acc-body{ max-height:100px; padding:0 22px 20px 60px; }
+.pay-acc-body p{ font-size:13px; color:var(--text-muted); }
+
+/* ---------- INVERSION: simulador ---------- */
+.sim-card{ margin-top:20px; padding:28px; border-radius:16px; background:var(--surface); border:1px solid var(--border); }
+.sim-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; }
+.free-badge{
+  display:inline-flex; align-items:center; gap:6px; margin-top:12px; padding:7px 14px; border-radius:100px;
+  background:rgba(34,198,183,.1); border:1px solid rgba(34,198,183,.3); color:var(--teal-2); font-size:12.5px; font-weight:600;
+}
+.sim-readout{ text-align:right; }
+.sim-months{ font-size:30px; font-weight:700; color:var(--teal-2); }
+.sim-slider{
+  width:100%; margin:22px 0 6px; -webkit-appearance:none; appearance:none; height:4px; border-radius:4px;
+  background:linear-gradient(90deg, var(--blue), var(--teal) var(--fill,33%), var(--surface-3) var(--fill,33%));
+  outline:none;
+}
+.sim-slider::-webkit-slider-thumb{
+  -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:#fff;
+  border:3px solid var(--teal-2); cursor:pointer; box-shadow:0 0 0 4px rgba(34,198,183,.15);
+}
+.sim-slider::-moz-range-thumb{ width:18px; height:18px; border-radius:50%; background:#fff; border:3px solid var(--teal-2); cursor:pointer; }
+.sim-groups{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:26px; }
+@media (max-width:640px){ .sim-groups{ grid-template-columns:1fr; } }
+.sim-group{ padding:16px 18px; background:var(--surface-2); border-radius:12px; }
+.sg-t{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--teal-2); text-transform:uppercase; letter-spacing:.05em; margin-bottom:10px; }
+.sg-items{ display:flex; flex-direction:column; gap:6px; }
+.sg-items span{ font-size:12.5px; color:var(--text-muted); }
+.sim-result{
+  margin-top:22px; padding-top:22px; border-top:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+}
+.sr-lbl{ font-weight:600; font-size:14px; }
+.sr-sub{ font-size:12px; color:var(--text-dim); margin-top:3px; }
+.sr-amt{ font-size:30px; font-weight:700; }
+
+/* section dividers */
+.divider{ height:1px; background:var(--border); }
+</style>
+</head>
+<body>
+
+<div id="cursor-ring"></div>
+<div id="cursor-dot"></div>
+
+<nav id="nav">
+  <div class="wrap inner">
+    <a href="#hero" class="brand">
+      <img src="assets/kenocia-logo.png" alt="Kenocia">
+      <div class="wordmark">KENOCIA <span>· APP YEGO</span></div>
+    </a>
+    <div class="navlinks">
+      <a href="#anteproyecto">Anteproyecto</a>
+      <a href="#alcance">Alcance</a>
+      <a href="#diseno">Diseño</a>
+      <a href="#plataforma">Plataforma</a>
+      <a href="#diferencial">Diferencial</a>
+      <a href="#inversion">Inversión</a>
+      <a href="#otros-costos">Otros costos</a>
+      <a href="#trabajamos">Cómo trabajamos</a>
+      <a href="#entregables">Entregables</a>
+    </div>
+    <a href="assets/Cotizacion_Kenocia_APP_YEGO.pdf" download class="btn btn-ghost" style="padding:10px 16px; font-size:13px;">↓ PDF</a>
+    <a href="#inversion" class="btn btn-primary" style="padding:10px 18px; font-size:13px;">Ver inversión</a>
+  </div>
+  <div class="progress" id="scrollProgress"></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-tag"><span class="dot">●</span> Propuesta de proyecto · Honduras 2026</div>
+      <h1>APP <span class="grad">YEGO</span><br>marketplace de<br>excedente comercial</h1>
+      <p class="lead">Producto Mínimo Viable: app de consumidor, gestión para comercios y backoffice sobre Odoo 18 CE — de la idea a producción en 4 meses.</p>
+      <div class="hero-meta">
+        <div class="item"><div class="k">Duración</div><div class="v">4 meses</div></div>
+        <div class="item"><div class="k">Plataformas</div><div class="v">Android · iOS · Odoo</div></div>
+        <div class="item"><div class="k">Mercado</div><div class="v">Honduras</div></div>
+      </div>
+      <div class="hero-cta">
+        <a href="#inversion" class="btn btn-primary">Ver inversión y planes</a>
+        <a href="#anteproyecto" class="btn btn-ghost">Explorar el alcance</a>
+      </div>
+    </div>
+    <div class="hero-orb-wrap">
+      <div class="hero-orb">
+        <div class="orb-scan"></div>
+        <div class="ring ring-outer"></div>
+        <div class="ring ring-dash"></div>
+        <div class="glow"></div>
+        <div class="orbit orbit-1"><span class="node"></span></div>
+        <div class="orbit orbit-2"><span class="node node-b"></span></div>
+        <img src="assets/kenocia-logo.png" alt="Kenocia logo">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- ANTEPROYECTO -->
+<section id="anteproyecto" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">01 · Anteproyecto</div>
+      <h2 class="section-title">Lo que vamos a construir, con el alcance y la lógica de la solución.</h2>
+      <p class="section-sub">Un Producto Mínimo Viable que conecta comercios con excedente disponible y consumidores que buscan aprovecharlo — con una base tecnológica propia, escalable y lista para crecer por etapas.</p>
+    </div>
+
+    <div class="ante-grid">
+      <div class="ante-list reveal">
+        <div class="ante-item">
+          <div class="n">01</div>
+          <h4>Introducción</h4>
+          <p>Plataforma digital orientada a la venta de "bolsas sorpresa" de productos con descuento, tomando como referencia modelos internacionales como Too Good To Go y Karma, adaptados al mercado hondureño.</p>
+        </div>
+        <div class="ante-item">
+          <div class="n">02</div>
+          <h4>Necesidad del negocio</h4>
+          <p>Articular la relación entre comercios con excedente disponible y consumidores, con visibilidad central para administración: usuarios, comercios, ofertas, reservas y pagos.</p>
+        </div>
+        <div class="ante-item">
+          <div class="n">03</div>
+          <h4>Propuesta de solución</h4>
+          <p>App de consumidor en Flutter, gestión de comercios y administración central sobre Odoo 18 CE, con pagos vía PowerTranz (BAC) y tableros de indicadores para comercios y administración.</p>
+        </div>
+        <div class="ante-item">
+          <div class="n">04</div>
+          <h4>Entrega y seguimiento</h4>
+          <p>La plataforma da seguimiento digital completo a la reserva. La preparación y entrega física de la oferta es operación del comercio y del cliente — Kenocia no gestiona logística de entrega.</p>
+        </div>
+      </div>
+
+      <div class="ante-visual reveal">
+        <h4>Flujo de reserva</h4>
+        <div class="flow-node"><div class="ic">📍</div><div><b>Descubrimiento</b><span>Consumidor localiza comercios cercanos</span></div></div>
+        <div class="flow-line"></div>
+        <div class="flow-node"><div class="ic">🛍️</div><div><b>Reserva</b><span>Selecciona oferta y confirma cantidad</span></div></div>
+        <div class="flow-line"></div>
+        <div class="flow-node"><div class="ic">💳</div><div><b>Pago</b><span>PowerTranz procesa el cobro (BAC)</span></div></div>
+        <div class="flow-line"></div>
+        <div class="flow-node"><div class="ic">✅</div><div><b>Recolección</b><span>Código de un solo uso en el comercio</span></div></div>
+        <div class="excl-tag">⚠ Entrega física — fuera del alcance de desarrollo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- ALCANCE / TABS -->
+<section id="alcance" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Alcance funcional</div>
+      <h2 class="section-title">Tres perfiles, un mismo ecosistema.</h2>
+      <p class="section-sub">Cada participante ve exactamente lo que necesita — sin fricción, sin funciones de más.</p>
+    </div>
+
+    <div class="tabs reveal">
+      <button class="tab-btn active" data-tab="consumidor">📱 Consumidor</button>
+      <button class="tab-btn" data-tab="comercio">🏪 Comercio</button>
+      <button class="tab-btn" data-tab="admin">🛡️ Administración</button>
+    </div>
+
+    <div class="tab-panels reveal">
+      <div class="tab-panel active" id="panel-consumidor">
+        <div class="cap-item"><div class="chk">✓</div>Registrarse e iniciar sesión</div>
+        <div class="cap-item"><div class="chk">✓</div>Localizar comercios cercanos</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar ofertas disponibles</div>
+        <div class="cap-item"><div class="chk">✓</div>Reservar una oferta</div>
+        <div class="cap-item"><div class="chk">✓</div>Pagar la reserva</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar estado de la reserva</div>
+        <div class="cap-item"><div class="chk">✓</div>Revisar reservas anteriores</div>
+        <div class="cap-item"><div class="chk">✓</div>Calificar la experiencia</div>
+      </div>
+      <div class="tab-panel" id="panel-comercio">
+        <div class="cap-item"><div class="chk">✓</div>Acceder a su cuenta</div>
+        <div class="cap-item"><div class="chk">✓</div>Administrar información y ubicación</div>
+        <div class="cap-item"><div class="chk">✓</div>Crear y actualizar ofertas</div>
+        <div class="cap-item"><div class="chk">✓</div>Controlar disponibilidad</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar reservas recibidas</div>
+        <div class="cap-item"><div class="chk">✓</div>Revisar estado de pago</div>
+        <div class="cap-item"><div class="chk">✓</div>Actualizar avance de la reserva</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar su tablero de indicadores</div>
+      </div>
+      <div class="tab-panel" id="panel-admin">
+        <div class="cap-item"><div class="chk">✓</div>Consultar consumidores</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar comercios</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar ofertas</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar reservas</div>
+        <div class="cap-item"><div class="chk">✓</div>Consultar pagos</div>
+        <div class="cap-item"><div class="chk">✓</div>Activar / desactivar comercios</div>
+        <div class="cap-item"><div class="chk">✓</div>Activar / desactivar ofertas</div>
+        <div class="cap-item"><div class="chk">✓</div>Tablero de indicadores general</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- DISEÑO -->
+<section id="diseno" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">02 · Diseño</div>
+      <h2 class="section-title">Ecosistema general de la plataforma.</h2>
+      <p class="section-sub">La plataforma conecta cuatro actores. La entrega física queda fuera de la frontera tecnológica.</p>
+    </div>
+
+    <div class="eco reveal">
+      <div class="eco-node card" style="text-align:center;"><b>🛡️ Administración</b><span>Supervisa consumidores, comercios, ofertas, reservas y pagos</span></div>
+      <div class="eco-vline"></div>
+      <div class="eco-row">
+        <div class="eco-node"><b>📱 Consumidor</b><span>Consulta, reserva, paga y da seguimiento</span></div>
+        <div class="eco-node core"><b>⬡ Plataforma</b><span>App · Gestión de comercio · Odoo</span></div>
+        <div class="eco-node"><b>🏪 Comercio</b><span>Ofertas, reservas y avance</span></div>
+      </div>
+      <div class="eco-vline"></div>
+      <div class="eco-row">
+        <div class="eco-node"><b>💳 Pasarela de pago</b><span>PowerTranz procesa las operaciones</span></div>
+        <div class="eco-node excl"><b>🚚 Entrega física</b><span>Operación del cliente — fuera del software</span></div>
+        <div class="eco-node"><b>🗺️ Mapas</b><span>Ubicación y cálculo de distancia</span></div>
+        <div class="eco-node"><b>📊 Tablero</b><span>Indicadores por comercio y generales</span></div>
+      </div>
+    </div>
+
+    <div class="journey reveal" style="margin-top:80px;">
+      <div class="eyebrow">Recorrido del consumidor</div>
+      <div class="journey-phase">
+        <div class="ph-label">Fase 1 — Descubrimiento</div>
+        <div class="journey-steps">
+          <div class="jstep"><div class="num">01</div><div class="lbl">Ingreso a la app</div></div>
+          <div class="jstep"><div class="num">02</div><div class="lbl">Autorización de ubicación</div></div>
+          <div class="jstep"><div class="num">03</div><div class="lbl">Comercios cercanos</div></div>
+          <div class="jstep"><div class="num">04</div><div class="lbl">Ordenamiento por distancia</div></div>
+          <div class="jstep"><div class="num">05</div><div class="lbl">Selección de comercio</div></div>
+        </div>
+      </div>
+      <div class="journey-phase">
+        <div class="ph-label">Fase 2 — Reserva</div>
+        <div class="journey-steps">
+          <div class="jstep"><div class="num">06</div><div class="lbl">Consulta de ofertas</div></div>
+          <div class="jstep"><div class="num">07</div><div class="lbl">Detalle de la oferta</div></div>
+          <div class="jstep"><div class="num">08</div><div class="lbl">Selección de cantidad</div></div>
+          <div class="jstep"><div class="num">09</div><div class="lbl">Información de entrega</div></div>
+          <div class="jstep"><div class="num">10</div><div class="lbl">Resumen de la reserva</div></div>
+        </div>
+      </div>
+      <div class="journey-phase">
+        <div class="ph-label">Fase 3 — Pago y seguimiento</div>
+        <div class="journey-steps">
+          <div class="jstep"><div class="num">11</div><div class="lbl">Pago</div></div>
+          <div class="jstep"><div class="num">12</div><div class="lbl">Confirmación</div></div>
+          <div class="jstep"><div class="num">13</div><div class="lbl">Seguimiento de la reserva</div></div>
+          <div class="jstep" style="border-color:var(--teal); background:var(--grad-soft);"><div class="num">14</div><div class="lbl">Reserva concluida</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- PLATAFORMA / DASHBOARD / STACK -->
+<section id="plataforma" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Plataforma</div>
+      <h2 class="section-title">Control, indicadores y stack tecnológico.</h2>
+      <p class="section-sub">Todo administrado desde un mismo backoffice — con visibilidad de negocio, no solo de datos.</p>
+    </div>
+
+    <div class="platform-grid reveal">
+      <div class="platform-card platform-card--wide">
+        <div class="pc-head">
+          <span class="pc-tag">Dashboard &amp; KPI</span>
+          <span class="pc-live"><i></i>en vivo</span>
+        </div>
+        <p class="pc-desc">Tablero de indicadores para comercios y para administración: ventas, reservas, ticket promedio y comercios activos, en tiempo real.</p>
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-lbl">GMV del mes</div><div class="kpi-val">L 184,200</div><div class="kpi-bar"><span style="width:72%"></span></div></div>
+          <div class="kpi"><div class="kpi-lbl">Reservas</div><div class="kpi-val">1,096</div><div class="kpi-bar"><span style="width:58%"></span></div></div>
+          <div class="kpi"><div class="kpi-lbl">Comercios activos</div><div class="kpi-val">34</div><div class="kpi-bar"><span style="width:44%"></span></div></div>
+          <div class="kpi"><div class="kpi-lbl">Ticket promedio</div><div class="kpi-val">L 168</div><div class="kpi-bar"><span style="width:63%"></span></div></div>
+        </div>
+      </div>
+
+      <div class="platform-card">
+        <div class="pc-head"><span class="pc-tag">Liquidación &amp; control</span></div>
+        <p class="pc-desc">Reporte de ventas, comisión y ajustes por comercio y período. Control de estado de cada liquidación, de borrador a pagada.</p>
+        <div class="mini-steps">
+          <span>Borrador</span><i>→</i><span>Calculada</span><i>→</i><span>Aprobada</span><i>→</i><span class="on">Pagada</span>
+        </div>
+      </div>
+
+      <div class="platform-card">
+        <div class="pc-head"><span class="pc-tag">Ranking de comercios</span></div>
+        <p class="pc-desc">Clasificación de comercios por volumen de venta y actividad, visible en administración.</p>
+        <div class="rank-list">
+          <div class="rank-row"><span class="rk">1</span>Panadería Central<b>L 12,400</b></div>
+          <div class="rank-row"><span class="rk">2</span>Mercadito Sur<b>L 9,850</b></div>
+          <div class="rank-row"><span class="rk">3</span>Café Nube<b>L 7,220</b></div>
+        </div>
+      </div>
+
+      <div class="platform-card">
+        <div class="pc-head"><span class="pc-tag">Ranking de clientes</span></div>
+        <p class="pc-desc">Consumidores con mayor frecuencia y volumen de reservas, para programas futuros de fidelización.</p>
+        <div class="rank-list">
+          <div class="rank-row"><span class="rk">1</span>Usuario ***482<b>18 reservas</b></div>
+          <div class="rank-row"><span class="rk">2</span>Usuario ***107<b>15 reservas</b></div>
+          <div class="rank-row"><span class="rk">3</span>Usuario ***955<b>12 reservas</b></div>
+        </div>
+      </div>
+
+      <div class="platform-card platform-card--wide">
+        <div class="pc-head"><span class="pc-tag">Stack tecnológico</span></div>
+        <p class="pc-desc">La misma base técnica validada en otros proyectos de Kenocia, aplicada a este MVP.</p>
+        <div class="stack-grid">
+          <div class="stack-item">Flutter</div>
+          <div class="stack-item">Odoo 18 CE</div>
+          <div class="stack-item">PostgreSQL</div>
+          <div class="stack-item">Redis</div>
+          <div class="stack-item">PowerTranz · BAC</div>
+          <div class="stack-item">Docker</div>
+          <div class="stack-item">NGINX</div>
+          <div class="stack-item">Google Maps API</div>
+          <div class="stack-item">FCM · APNs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- INVERSION -->
+<section id="inversion" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">03 · Inversión</div>
+      <h2 class="section-title">Explora la inversión a tu ritmo.</h2>
+      <p class="section-sub">Desarrollo a precio fijo. Ajusta el simulador para ver cómo se acumula el costo de operación después del lanzamiento.</p>
+    </div>
+
+    <div class="price-stage reveal" id="mode-unico">
+      <div class="price-hero">
+        <span class="amt mono">$23,500</span>
+        <span class="unit">USD + IVA · inversión total del desarrollo</span>
+      </div>
+      <p class="price-note">Desarrollo completo del MVP: app consumidor, backend/Odoo, integraciones y tableros de indicadores, del arranque a la puesta en producción — incluye los primeros 2 meses de soporte y alojamiento sin costo adicional.</p>
+
+      <div class="pay-accordion" id="payAccordion">
+        <div class="pay-acc-item is-open" data-idx="1">
+          <button class="pay-acc-head">
+            <span class="pah-l"><span class="badge">1</span> Mensualidad 1 — Agosto 2026</span>
+            <span class="pah-r">$5,875.00 <i class="chev">⌄</i></span>
+          </button>
+          <div class="pay-acc-body"><p>25% del total. Arranque del proyecto: relevamiento funcional y diseño de arquitectura.</p></div>
+        </div>
+        <div class="pay-acc-item" data-idx="2">
+          <button class="pay-acc-head">
+            <span class="pah-l"><span class="badge">2</span> Mensualidad 2 — Septiembre 2026</span>
+            <span class="pah-r">$5,875.00 <i class="chev">⌄</i></span>
+          </button>
+          <div class="pay-acc-body"><p>25% del total. Desarrollo del backend/Odoo, modelos de datos y APIs.</p></div>
+        </div>
+        <div class="pay-acc-item" data-idx="3">
+          <button class="pay-acc-head">
+            <span class="pah-l"><span class="badge">3</span> Mensualidad 3 — Octubre 2026</span>
+            <span class="pah-r">$5,875.00 <i class="chev">⌄</i></span>
+          </button>
+          <div class="pay-acc-body"><p>25% del total. Desarrollo de la aplicación móvil e integración de pagos.</p></div>
+        </div>
+        <div class="pay-acc-item" data-idx="4">
+          <button class="pay-acc-head">
+            <span class="pah-l"><span class="badge">4</span> Mensualidad 4 — Noviembre 2026</span>
+            <span class="pah-r">$5,875.00 <i class="chev">⌄</i></span>
+          </button>
+          <div class="pay-acc-body"><p>25% del total. Pruebas, publicación en tiendas y piloto en producción.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sim-card reveal">
+      <div class="sim-head">
+        <div>
+          <div class="tag">SIMULADOR DE OPERACIÓN</div>
+          <div style="font-weight:600; font-size:16px; margin-top:6px;">¿Cuántos meses planeas operar después del lanzamiento?</div>
+          <div class="free-badge">🎁 Los primeros 2 meses de soporte van incluidos sin costo dentro de los $23,500</div>
+        </div>
+        <div class="sim-readout">
+          <span class="sim-months mono" id="simMonths">8</span>
+          <span style="font-size:12px; color:var(--text-muted);">meses</span>
+        </div>
+      </div>
+
+      <input type="range" min="1" max="24" value="8" id="simSlider" class="sim-slider">
+
+      <div class="sim-groups">
+        <div class="sim-group">
+          <div class="sg-t">Infraestructura activa</div>
+          <div class="sg-items">
+            <span>Servidores y almacenamiento en la nube</span>
+            <span>Certificado SSL y monitoreo continuo</span>
+          </div>
+        </div>
+        <div class="sim-group">
+          <div class="sg-t">Continuidad del servicio</div>
+          <div class="sg-items">
+            <span>Respaldos programados con recuperación</span>
+            <span>Capacidad ajustable según el tráfico real</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-result">
+        <div>
+          <div class="sr-lbl">Costo de operación por el período elegido</div>
+          <div class="sr-sub" id="simSub">2 meses incluidos gratis + 6 meses a USD 610/mes + IVA</div>
+        </div>
+        <div class="sr-amt mono" id="simTotal">$3,660</div>
+      </div>
+    </div>
+
+    <p class="disclaimer reveal">* Todos los precios son más IVA. La inversión de desarrollo no incluye comisiones del proveedor de pagos, cuentas de publicación en tiendas móviles, ni operación logística de entrega — estos costos son independientes y a cargo del cliente.</p>
+
+    <a href="assets/Cotizacion_Kenocia_APP_YEGO.pdf" download class="btn btn-primary reveal" style="margin-top:28px;">↓ Descargar cotización en PDF</a>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- OTROS COSTOS -->
+<section id="otros-costos" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Otros costos a considerar</div>
+      <h2 class="section-title">Todo lo que una app realmente necesita — sin sorpresas.</h2>
+      <p class="section-sub">La inversión de desarrollo no es el único costo de lanzar una aplicación. Aquí está el desglose completo de lo que se paga aparte, a quién, y cuándo.</p>
+    </div>
+
+    <h3 style="margin-top:44px;">Publicación en tiendas</h3>
+    <table class="cost-table reveal">
+      <tr><th>Concepto</th><th>Costo</th></tr>
+      <tr><td>Apple Developer Program</td><td>USD 99 / año</td></tr>
+      <tr><td>Google Play Console</td><td>USD 25 (pago único)</td></tr>
+      <tr class="cost-total"><td>Primer año</td><td>USD 124</td></tr>
+      <tr class="cost-total"><td>Años siguientes</td><td>USD 99 / año</td></tr>
+    </table>
+    <p class="cost-note">A cargo del cliente, directamente con Apple y Google — la cuenta debe quedar a su nombre para que la propiedad de las apps sea suya desde el inicio.</p>
+
+    <h3 style="margin-top:40px;">Infraestructura — etapa de desarrollo</h3>
+    <table class="cost-table reveal">
+      <tr><th>Servidor</th><th>Recursos</th><th>Costo aprox.</th></tr>
+      <tr><td>Producción / Piloto</td><td>8 GB / 4 vCPU</td><td>USD 48</td></tr>
+      <tr><td>Staging</td><td>4 GB / 2 vCPU</td><td>USD 24</td></tr>
+      <tr><td>Object Storage</td><td>250 GB</td><td>USD 5</td></tr>
+      <tr class="cost-total"><td colspan="2">Total base</td><td>USD 77 / mes</td></tr>
+    </table>
+
+    <h3 style="margin-top:40px;">Infraestructura — producción inicial</h3>
+    <table class="cost-table reveal">
+      <tr><th>Componente</th><th>Recursos</th><th>USD / mes</th></tr>
+      <tr><td>Odoo + API</td><td>8 GB / 4 vCPU</td><td>$48</td></tr>
+      <tr><td>PostgreSQL administrado</td><td>4 GB / 2 vCPU</td><td>~$60.90</td></tr>
+      <tr><td>Staging</td><td>4 GB / 2 vCPU</td><td>$24</td></tr>
+      <tr><td>Object Storage</td><td>250 GB</td><td>$5</td></tr>
+      <tr><td>Load Balancer</td><td>1 nodo</td><td>$12</td></tr>
+      <tr><td>Backups / otros</td><td>estimado</td><td>$15–30</td></tr>
+      <tr class="cost-total"><td colspan="2">Total</td><td>~$165–180 / mes</td></tr>
+    </table>
+    <p class="cost-note"><strong>Esta infraestructura ya está cubierta dentro del fee de Soporte + Alojamiento (USD 610/mes)</strong> — se muestra en detalle para que quede clara la composición real del costo, no como un cargo adicional.</p>
+
+    <h3 style="margin-top:40px;">Servicios de terceros — variables</h3>
+    <table class="cost-table reveal">
+      <tr><th>Servicio</th><th>Costo estimado</th></tr>
+      <tr><td>Comisión pasarela de pago (PowerTranz / BAC)</td><td>~2.9%–3.9% + cargo fijo por transacción</td></tr>
+      <tr><td>Google Maps API (geolocalización)</td><td>Nivel gratuito inicial, luego por consumo (~$0–200/mes)</td></tr>
+      <tr><td>Correo transaccional</td><td>$0–20/mes según volumen</td></tr>
+      <tr><td>Dominio + SSL</td><td>~$15–20/año (SSL gratuito vía Let's Encrypt)</td></tr>
+      <tr><td>SMS / WhatsApp (si se habilita)</td><td>Variable por mensaje enviado</td></tr>
+    </table>
+    <p class="cost-note">Estos costos dependen del volumen real de uso de la plataforma — no se pueden fijar de antemano, y se facturan directamente al cliente por el proveedor correspondiente.</p>
+
+    <h3 style="margin-top:40px;">Costos indirectos a considerar</h3>
+    <p class="cost-note" style="margin-bottom:20px;">Más allá del desarrollo y la infraestructura, esto es lo que en nuestra experiencia el cliente termina necesitando y no siempre presupuesta desde el inicio:</p>
+    <div class="indirect-grid reveal">
+      <div class="indirect-item">Marketing y campaña de lanzamiento para atraer comercios y consumidores</div>
+      <div class="indirect-item">Un responsable del cliente dedicado a dar seguimiento al proyecto</div>
+      <div class="indirect-item">Fotografía y contenido de los comercios afiliados para la app</div>
+      <div class="indirect-item">Asesoría legal — términos y condiciones, política de privacidad, contratos con comercios</div>
+      <div class="indirect-item">Capacitación operativa a los comercios sobre el uso de la plataforma</div>
+      <div class="indirect-item">Gestión de disputas y contracargos ante el banco emisor</div>
+      <div class="indirect-item">Renovaciones anuales — cuentas de desarrollador, dominio, certificados</div>
+      <div class="indirect-item">Auditoría de seguridad formal, si se requiere en una fase posterior</div>
+    </div>
+
+    <h3 style="margin-top:56px;">Mapa de inversión — Año 1</h3>
+    <p class="cost-note" style="margin-bottom:28px;">Con lanzamiento en el mes 4, así se distribuyen los costos fijos conocidos durante los primeros 12 meses.</p>
+
+    <div class="invest-map reveal">
+      <div class="invest-month"><div class="im-lbl">Mes 1</div><div class="im-tags"><span class="tag-dev">Desarrollo</span><span class="tag-store">Tiendas</span></div><div class="im-amt">$5,999</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 2</div><div class="im-tags"><span class="tag-dev">Desarrollo</span></div><div class="im-amt">$5,875</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 3</div><div class="im-tags"><span class="tag-dev">Desarrollo</span></div><div class="im-amt">$5,875</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 4</div><div class="im-tags"><span class="tag-dev">Desarrollo</span></div><div class="im-amt">$5,875</div></div>
+      <div class="invest-month im-launch"><div class="im-lbl">Lanzamiento</div><div class="im-tags"><span class="tag-launch">🚀 Producción</span></div><div class="im-amt">—</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 5</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 6</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 7</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 8</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 9</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 10</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 11</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 12</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+    </div>
+
+    <div class="invest-total reveal">
+      <div>
+        <div class="it-lbl">Costos fijos conocidos — Año 1</div>
+        <div class="it-sub">Desarrollo (4 pagos) + cuentas de tiendas + 8 meses de soporte y alojamiento</div>
+      </div>
+      <div class="it-amt mono">$28,504</div>
+    </div>
+    <p class="cost-note">No incluye comisiones variables de pasarela de pago, consumo excedente de mapas/correo, ni costos indirectos de marketing y operación — esos dependen del volumen real de uso y quedan fuera de este cálculo fijo.</p>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- POR QUE KENOCIA -->
+<section id="diferencial" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Por qué Kenocia</div>
+      <h2 class="section-title">No partimos de cero.</h2>
+      <p class="section-sub">La mayoría de las agencias construyen cada proyecto desde una hoja en blanco. Kenocia ya tiene piezas de este sistema en producción — APP YEGO las reutiliza y extiende.</p>
+    </div>
+
+    <div class="compare-table reveal">
+      <div class="compare-row compare-head">
+        <div class="compare-cell"></div>
+        <div class="compare-cell">Agencia de desarrollo típica</div>
+        <div class="compare-cell compare-cell--brand">Kenocia</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell compare-lbl">Punto de partida</div>
+        <div class="compare-cell">Código nuevo desde cero</div>
+        <div class="compare-cell compare-cell--brand">Módulos propios ya construidos y en producción, reutilizados</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell compare-lbl">Enfoque</div>
+        <div class="compare-cell">Ejecuta el requerimiento tal como se pide</div>
+        <div class="compare-cell compare-cell--brand">Entiende el negocio primero, luego diseña la solución</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell compare-lbl">Contexto fiscal local</div>
+        <div class="compare-cell">Investiga sobre la marcha</div>
+        <div class="compare-cell compare-cell--brand">Módulo fiscal Honduras (SAR) ya desarrollado y en uso</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell compare-lbl">Post-lanzamiento</div>
+        <div class="compare-cell">Handoff y soporte por ticket</div>
+        <div class="compare-cell compare-cell--brand">Mismo equipo que construyó, administra la operación</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell compare-lbl">Experiencia técnica</div>
+        <div class="compare-cell">Variable según el proyecto</div>
+        <div class="compare-cell compare-cell--brand">Backend desde 2005, apps móviles desde 2010</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- TRAYECTORIA -->
+<section id="trayectoria" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Trayectoria</div>
+      <h2 class="section-title">Años de experiencia, aplicados a este proyecto.</h2>
+      <p class="section-sub">Kenocia (Kenosis Company) desarrolla software a la medida sobre diversas tecnologías — APP YEGO parte de esa misma experiencia.</p>
+    </div>
+
+    <div class="track-grid reveal">
+      <div class="track-card">
+        <div class="track-yr">2005</div>
+        <p>Inicio del desarrollo backend — arquitecturas de servidor, bases de datos e integraciones.</p>
+      </div>
+      <div class="track-card">
+        <div class="track-yr">2010</div>
+        <p>Inicio del desarrollo de aplicaciones móviles — iOS, Android y multiplataforma.</p>
+      </div>
+      <div class="track-card">
+        <div class="track-yr">Multitecnología</div>
+        <p>Experiencia sobre distintos stacks y frameworks — la tecnología se elige según el proyecto, no al revés.</p>
+      </div>
+      <div class="track-card">
+        <div class="track-yr">En producción</div>
+        <p>Integraciones de pagos, inventario e indicadores en tiempo real ya operando para clientes activos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- RECOMENDACIONES -->
+<section id="recomendaciones" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Recomendaciones</div>
+      <h2 class="section-title">Lo que recomendamos, basado en experiencia real.</h2>
+      <p class="section-sub">No es la única forma de construirlo — es la forma que, en nuestra experiencia, reduce el riesgo de un marketplace transaccional en su primera versión.</p>
+    </div>
+
+    <div class="reco-grid reveal">
+      <div class="reco-card">
+        <div class="reco-n">01</div>
+        <div class="reco-t">Empezar con un piloto controlado</div>
+        <p>Lanzar con pocos comercios reales antes de abrir a todos — valida el modelo de negocio sin arriesgar la operación completa desde el día uno.</p>
+      </div>
+      <div class="reco-card">
+        <div class="reco-n">02</div>
+        <div class="reco-t">Control de concurrencia desde el diseño</div>
+        <p>La reserva simultánea de la misma oferta por varios usuarios es el riesgo técnico más común en un marketplace — se resuelve en la arquitectura, no después.</p>
+      </div>
+      <div class="reco-card">
+        <div class="reco-n">03</div>
+        <div class="reco-t">Liquidación semi-manual antes que automática</div>
+        <p>Automatizar pagos a comercios desde el primer día agrega complejidad innecesaria — un reporte de liquidación con revisión manual es más seguro para una V1.</p>
+      </div>
+      <div class="reco-card">
+        <div class="reco-n">04</div>
+        <div class="reco-t">Código de recolección de un solo uso</div>
+        <p>Un QR o PIN que expira evita fraude en la entrega sin necesitar validación biométrica ni hardware adicional.</p>
+      </div>
+      <div class="reco-card">
+        <div class="reco-n">05</div>
+        <div class="reco-t">Auditoría de todo evento financiero</div>
+        <p>Cada cambio de estado en pagos y reservas debe quedar registrado — es la diferencia entre poder explicar una discrepancia y no poder hacerlo.</p>
+      </div>
+      <div class="reco-card">
+        <div class="reco-n">06</div>
+        <div class="reco-t">Separar el MVP de las ideas de fase 2</div>
+        <p>Cupones, fidelización, IA y multi-país suenan bien desde el inicio, pero diluyen el enfoque — se agregan una vez el modelo esté validado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- COMO TRABAJAMOS -->
+<section id="trabajamos" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">04 · Cómo trabajamos</div>
+      <h2 class="section-title">Negocio primero, tecnología después.</h2>
+      <p class="section-sub">Nuestra metodología propia — la misma que usamos en cada implementación de Kenocia.</p>
+    </div>
+
+    <div class="method-steps reveal">
+      <div class="method-step">
+        <div class="ms-n">01</div>
+        <div class="ms-t">Relevamiento y diagnóstico</div>
+        <p>Cómo opera hoy el negocio, problemas reales, estructura y limitaciones actuales.</p>
+      </div>
+      <div class="method-step">
+        <div class="ms-n">02</div>
+        <div class="ms-t">Diseño funcional</div>
+        <p>Procesos futuros, reglas operativas, qué es estándar y qué requiere personalización.</p>
+      </div>
+      <div class="method-step">
+        <div class="ms-n">03</div>
+        <div class="ms-t">Arquitectura técnica</div>
+        <p>Infraestructura, seguridad, ambientes e integraciones — antes de escribir código.</p>
+      </div>
+      <div class="method-step">
+        <div class="ms-n">04</div>
+        <div class="ms-t">Desarrollo</div>
+        <p>Módulos, automatizaciones, reportes e integraciones sobre la base ya construida.</p>
+      </div>
+      <div class="method-step">
+        <div class="ms-n">05</div>
+        <div class="ms-t">Validación y maduración</div>
+        <p>Optimización, control de errores y trazabilidad posterior al lanzamiento.</p>
+      </div>
+    </div>
+
+    <div class="benefit-grid reveal">
+      <div class="benefit-card"><div class="ic">💰</div><p>Nuevo canal de ingresos para comercios a partir de excedente que hoy se pierde.</p></div>
+      <div class="benefit-card"><div class="ic">♻️</div><p>Reducción de desperdicio de alimentos y otros productos comerciales.</p></div>
+      <div class="benefit-card"><div class="ic">📈</div><p>Mayor visibilidad y tráfico de consumidores para los comercios afiliados.</p></div>
+      <div class="benefit-card"><div class="ic">⚡</div><p>Experiencia de compra simple y rápida para el consumidor final.</p></div>
+      <div class="benefit-card"><div class="ic">🎛️</div><p>Control centralizado de operación, pagos e indicadores desde Odoo.</p></div>
+      <div class="benefit-card"><div class="ic">🧱</div><p>Base tecnológica propia, documentada y escalable para crecer por etapas.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- ENTREGABLES -->
+<section id="entregables" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">05 · Entregables y garantía</div>
+      <h2 class="section-title">Lo que recibes al final del proyecto.</h2>
+      <p class="section-sub">La propiedad intelectual será completamente del cliente; Kenocia actúa como desarrollador y proveedor de servicios.</p>
+    </div>
+
+    <div class="deliver-grid reveal">
+      <div class="deliver-card"><div class="ic">💻</div><b>Código fuente</b></div>
+      <div class="deliver-card"><div class="ic">🗄️</div><b>Esquema de base de datos</b></div>
+      <div class="deliver-card"><div class="ic">📄</div><b>Documentación técnica</b></div>
+      <div class="deliver-card"><div class="ic">📲</div><b>Apps publicadas</b></div>
+    </div>
+
+    <div class="warranty-band reveal">
+      <div class="num">1 AÑO</div>
+      <div class="txt">Garantizamos la calidad del desarrollo por un año natural sin costo adicional, siempre que el código no sea modificado por terceros ajenos a Kenocia.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="wrap reveal">
+    <h2>Llevemos <span class="grad">APP YEGO</span><br>de la idea a producción.</h2>
+    <p>Propuesta vigente 30 días naturales · Kenocia (Kenosis Company)</p>
+    <div class="hero-cta" style="justify-content:center; margin-top:36px;">
+      <a href="#inversion" class="btn btn-primary">Revisar inversión</a>
+      <a href="mailto:contacto@kenocia.com" class="btn btn-ghost">Escribir a Kenocia</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap inner">
+    <div class="fbrand">
+      <img src="assets/kenocia-logo.png" alt="Kenocia">
+      <span>KENOCIA <span style="color:var(--text-dim); font-weight:500;">— Kenosis Company</span></span>
+    </div>
+    <div class="fmeta">Propuesta de Proyecto · APP YEGO · Agosto 2026</div>
+  </div>
+</footer>
+
+<script>
+// custom cursor
+if (window.matchMedia('(pointer:fine)').matches) {
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  let mx=0,my=0, rx=0, ry=0;
+  window.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+  }, { passive:true });
+  function loop(){
+    rx += (mx-rx)*0.18; ry += (my-ry)*0.18;
+    ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+    requestAnimationFrame(loop);
+  }
+  loop();
+  const hoverables = 'a, button, .tab-btn, .jstep, .benefit-card, .deliver-card, .platform-card, .eco-node';
+  document.querySelectorAll(hoverables).forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+  });
+  document.addEventListener('mouseleave', () => { dot.style.opacity='0'; ring.style.opacity='0'; });
+  document.addEventListener('mouseenter', () => { dot.style.opacity='1'; ring.style.opacity='1'; });
+}
+
+// scroll progress
+const progress = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progress.style.width = scrolled + '%';
+}, { passive:true });
+
+// nav active link
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.navlinks a');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector('.navlinks a[href="#'+entry.target.id+'"]');
+      if(link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-40% 0px -50% 0px' });
+sections.forEach(s => navObserver.observe(s));
+
+// reveal on scroll
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){ entry.target.classList.add('in'); revealObserver.unobserve(entry.target); }
+  });
+}, { threshold:.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// tabs
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// payment accordion
+document.querySelectorAll('.pay-acc-head').forEach(head => {
+  head.addEventListener('click', () => {
+    const item = head.closest('.pay-acc-item');
+    const wasOpen = item.classList.contains('is-open');
+    document.querySelectorAll('.pay-acc-item').forEach(i => i.classList.remove('is-open'));
+    if(!wasOpen) item.classList.add('is-open');
+  });
+});
+
+// investment simulator
+const simSlider = document.getElementById('simSlider');
+const simMonths = document.getElementById('simMonths');
+const simTotal = document.getElementById('simTotal');
+const simSub = document.getElementById('simSub');
+const FREE_MONTHS = 2;
+const SUPPORT_RATE = 610;
+function updateSim(){
+  const months = parseInt(simSlider.value, 10);
+  simMonths.textContent = months;
+  const billable = Math.max(0, months - FREE_MONTHS);
+  const total = billable * SUPPORT_RATE;
+  simTotal.textContent = '$' + total.toLocaleString('en-US');
+  if(months <= FREE_MONTHS){
+    simSub.textContent = months + ' mes' + (months>1?'es':'') + ' cubierto' + (months>1?'s':'') + ' dentro de los 2 meses incluidos — $0 adicional';
+  } else {
+    simSub.textContent = FREE_MONTHS + ' meses incluidos gratis + ' + billable + ' mes' + (billable>1?'es':'') + ' a USD ' + SUPPORT_RATE + '/mes + IVA';
+  }
+  const pct = ((months - 1) / (24 - 1)) * 100;
+  simSlider.style.setProperty('--fill', pct + '%');
+}
+if(simSlider){ simSlider.addEventListener('input', updateSim); updateSim(); }
+
+// pricing (fijo — sin toggle)
+</script>
+</body>
+</html>
