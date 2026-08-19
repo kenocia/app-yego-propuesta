@@ -401,6 +401,90 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
 .reco-t{ font-weight:600; font-size:15px; margin:10px 0 8px; }
 .reco-card p{ font-size:13px; color:var(--text-muted); line-height:1.55; }
 
+/* ---------- OTROS COSTOS ---------- */
+.cost-table{ width:100%; border-collapse:collapse; margin-top:16px; border:1px solid var(--border); border-radius:12px; overflow:hidden; font-size:13.5px; }
+.cost-table th{ text-align:left; background:var(--surface-2); color:var(--text-dim); font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.05em; padding:12px 16px; font-weight:500; }
+.cost-table td{ padding:11px 16px; border-top:1px solid var(--border); color:var(--text-muted); }
+.cost-table tr:first-child td{ border-top:none; }
+.cost-table td:last-child{ text-align:right; font-family:'JetBrains Mono',monospace; color:var(--text); }
+.cost-table tr.cost-total td{ background:var(--grad-soft); color:var(--text); font-weight:600; }
+.cost-table tr.cost-total td:last-child{ color:var(--teal-2); }
+.cost-note{ font-size:12.5px; color:var(--text-dim); margin-top:12px; line-height:1.55; }
+
+.indirect-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media (max-width:700px){ .indirect-grid{ grid-template-columns:1fr; } }
+.indirect-item{ padding:14px 16px; border-radius:10px; background:var(--surface); border:1px solid var(--border); font-size:13px; color:var(--text-muted); position:relative; padding-left:34px; }
+.indirect-item::before{ content:"→"; position:absolute; left:14px; color:var(--teal-2); font-weight:700; }
+
+.invest-map{ display:grid; grid-template-columns:repeat(13,1fr); gap:6px; margin-top:8px; }
+@media (max-width:1100px){ .invest-map{ grid-template-columns:repeat(7,1fr); } }
+@media (max-width:640px){ .invest-map{ grid-template-columns:repeat(3,1fr); } }
+.invest-month{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 8px; text-align:center; }
+.im-launch{ background:var(--grad-main); border-color:transparent; }
+.im-lbl{ font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); }
+.im-launch .im-lbl{ color:rgba(255,255,255,.85); }
+.im-tags{ margin:8px 0; min-height:20px; display:flex; flex-direction:column; gap:3px; align-items:center; }
+.im-tags span{ font-size:9px; padding:2px 6px; border-radius:100px; font-weight:600; white-space:nowrap; }
+.tag-dev{ background:rgba(46,78,219,.18); color:#8FA3F5; }
+.tag-store{ background:rgba(126,90,234,.2); color:#C4AFF5; }
+.tag-sup{ background:rgba(34,198,183,.16); color:var(--teal-2); }
+.tag-launch{ background:rgba(255,255,255,.18); color:#fff; }
+.im-amt{ font-family:'JetBrains Mono',monospace; font-weight:600; font-size:12px; }
+.im-launch .im-amt{ color:#fff; }
+
+.invest-total{
+  margin-top:24px; padding:26px 28px; border-radius:16px; background:var(--surface); border:1px solid var(--border-2);
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;
+}
+.it-lbl{ font-weight:700; font-size:16px; }
+.it-sub{ font-size:12.5px; color:var(--text-muted); margin-top:4px; }
+.it-amt{ font-size:32px; font-weight:700; color:var(--teal-2); }
+
+/* ---------- INVERSION: acordeón de pagos ---------- */
+.pay-accordion{ margin-top:36px; border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+.pay-acc-item{ border-bottom:1px solid var(--border); background:var(--surface); }
+.pay-acc-item:last-child{ border-bottom:none; }
+.pay-acc-head{
+  width:100%; display:flex; justify-content:space-between; align-items:center; padding:18px 22px;
+  background:none; border:none; cursor:pointer; font-family:'Inter',sans-serif; text-align:left;
+}
+.pah-l{ display:flex; align-items:center; gap:14px; font-weight:600; font-size:14.5px; color:var(--text); }
+.pah-r{ display:flex; align-items:center; gap:10px; font-family:'JetBrains Mono',monospace; font-weight:600; font-size:14px; color:var(--text); }
+.chev{ font-style:normal; color:var(--text-dim); transition:transform .3s ease; display:inline-block; }
+.pay-acc-item.is-open .chev{ transform:rotate(180deg); color:var(--teal-2); }
+.pay-acc-body{ max-height:0; overflow:hidden; transition:max-height .35s ease, padding .35s ease; padding:0 22px; }
+.pay-acc-item.is-open .pay-acc-body{ max-height:100px; padding:0 22px 20px 60px; }
+.pay-acc-body p{ font-size:13px; color:var(--text-muted); }
+
+/* ---------- INVERSION: simulador ---------- */
+.sim-card{ margin-top:20px; padding:28px; border-radius:16px; background:var(--surface); border:1px solid var(--border); }
+.sim-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; }
+.sim-readout{ text-align:right; }
+.sim-months{ font-size:30px; font-weight:700; color:var(--teal-2); }
+.sim-slider{
+  width:100%; margin:22px 0 6px; -webkit-appearance:none; appearance:none; height:4px; border-radius:4px;
+  background:linear-gradient(90deg, var(--blue), var(--teal) var(--fill,33%), var(--surface-3) var(--fill,33%));
+  outline:none;
+}
+.sim-slider::-webkit-slider-thumb{
+  -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:#fff;
+  border:3px solid var(--teal-2); cursor:pointer; box-shadow:0 0 0 4px rgba(34,198,183,.15);
+}
+.sim-slider::-moz-range-thumb{ width:18px; height:18px; border-radius:50%; background:#fff; border:3px solid var(--teal-2); cursor:pointer; }
+.sim-groups{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:26px; }
+@media (max-width:640px){ .sim-groups{ grid-template-columns:1fr; } }
+.sim-group{ padding:16px 18px; background:var(--surface-2); border-radius:12px; }
+.sg-t{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--teal-2); text-transform:uppercase; letter-spacing:.05em; margin-bottom:10px; }
+.sg-items{ display:flex; flex-direction:column; gap:6px; }
+.sg-items span{ font-size:12.5px; color:var(--text-muted); }
+.sim-result{
+  margin-top:22px; padding-top:22px; border-top:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+}
+.sr-lbl{ font-weight:600; font-size:14px; }
+.sr-sub{ font-size:12px; color:var(--text-dim); margin-top:3px; }
+.sr-amt{ font-size:30px; font-weight:700; }
+
 /* section dividers */
 .divider{ height:1px; background:var(--border); }
 </style>
@@ -423,6 +507,7 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
       <a href="#plataforma">Plataforma</a>
       <a href="#diferencial">Diferencial</a>
       <a href="#inversion">Inversión</a>
+      <a href="#otros-costos">Otros costos</a>
       <a href="#trabajamos">Cómo trabajamos</a>
       <a href="#entregables">Entregables</a>
     </div>
@@ -708,8 +793,8 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
   <div class="wrap">
     <div class="reveal">
       <div class="eyebrow">03 · Inversión</div>
-      <h2 class="section-title">Una estructura clara, sin costos ocultos.</h2>
-      <p class="section-sub">Desarrollo a precio fijo. El soporte y alojamiento se cubren aparte, solo mientras la plataforma esté en operación.</p>
+      <h2 class="section-title">Explora la inversión a tu ritmo.</h2>
+      <p class="section-sub">Desarrollo a precio fijo. Ajusta el simulador para ver cómo se acumula el costo de operación después del lanzamiento.</p>
     </div>
 
     <div class="price-stage reveal" id="mode-unico">
@@ -719,36 +804,178 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
       </div>
       <p class="price-note">Desarrollo completo del MVP: app consumidor, backend/Odoo, integraciones y tableros de indicadores, del arranque a la puesta en producción.</p>
 
-      <div class="price-panels mode-single active" id="panel-unico">
-        <div class="pay-row" style="animation-delay:.05s"><div class="left"><div class="badge">1</div><div><div class="t1">Mensualidad 1</div><div class="t2">Agosto 2026 · 25% del total</div></div></div><div class="amt2">$5,875.00</div></div>
-        <div class="pay-row" style="animation-delay:.1s"><div class="left"><div class="badge">2</div><div><div class="t1">Mensualidad 2</div><div class="t2">Septiembre 2026 · 25% del total</div></div></div><div class="amt2">$5,875.00</div></div>
-        <div class="pay-row" style="animation-delay:.15s"><div class="left"><div class="badge">3</div><div><div class="t1">Mensualidad 3</div><div class="t2">Octubre 2026 · 25% del total</div></div></div><div class="amt2">$5,875.00</div></div>
-        <div class="pay-row" style="animation-delay:.2s"><div class="left"><div class="badge">4</div><div><div class="t1">Mensualidad 4</div><div class="t2">Noviembre 2026 · 25% del total</div></div></div><div class="amt2">$5,875.00</div></div>
-      </div>
-    </div>
-
-    <div class="support-card reveal">
-      <div>
-        <div class="tag">SOPORTE + ALOJAMIENTO</div>
-        <div style="font-weight:600; font-size:16px;">Vigente después del lanzamiento — independiente del desarrollo</div>
-        <div class="support-list">
-          <span>Administración de servidores y hosting</span>
-          <span>Respaldos y recuperación de datos</span>
-          <span>Seguridad y certificado SSL</span>
-          <span>Almacenamiento en la nube</span>
-          <span>Escalabilidad y capacidad</span>
-          <span>Monitoreo y disponibilidad</span>
+      <div class="pay-accordion" id="payAccordion">
+        <div class="pay-acc-item is-open" data-idx="1">
+          <button class="pay-acc-head">
+            <span class="pah-l"><span class="badge">1</span> Mensualidad 1 — Agosto 2026</span>
+            <span class="pah-r">$5,875.00 <i class="chev">⌄</i></span>
+          </button>
+          <div class="pay-acc-body"><p>25% del total. Arranque del proyecto: relevamiento funcional y diseño de arquitectura.</p></div>
+        </div>
+        <div class="pay-acc-item" data-idx="2">
+          <button class="pay-acc-head">
+            <span class="pah-l"><span class="badge">2</span> Mensualidad 2 — Septiembre 2026</span>
+            <span class="pah-r">$5,875.00 <i class="chev">⌄</i></span>
+          </button>
+          <div class="pay-acc-body"><p>25% del total. Desarrollo del backend/Odoo, modelos de datos y APIs.</p></div>
+        </div>
+        <div class="pay-acc-item" data-idx="3">
+          <button class="pay-acc-head">
+            <span class="pah-l"><span class="badge">3</span> Mensualidad 3 — Octubre 2026</span>
+            <span class="pah-r">$5,875.00 <i class="chev">⌄</i></span>
+          </button>
+          <div class="pay-acc-body"><p>25% del total. Desarrollo de la aplicación móvil e integración de pagos.</p></div>
+        </div>
+        <div class="pay-acc-item" data-idx="4">
+          <button class="pay-acc-head">
+            <span class="pah-l"><span class="badge">4</span> Mensualidad 4 — Noviembre 2026</span>
+            <span class="pah-r">$5,875.00 <i class="chev">⌄</i></span>
+          </button>
+          <div class="pay-acc-body"><p>25% del total. Pruebas, publicación en tiendas y piloto en producción.</p></div>
         </div>
       </div>
-      <div class="support-price">
-        <div class="amt3 mono">$610</div>
-        <div style="font-size:12.5px; color:var(--text-muted);">USD / mes + IVA</div>
+    </div>
+
+    <div class="sim-card reveal">
+      <div class="sim-head">
+        <div>
+          <div class="tag">SIMULADOR DE OPERACIÓN</div>
+          <div style="font-weight:600; font-size:16px; margin-top:6px;">¿Cuántos meses planeas operar después del lanzamiento?</div>
+        </div>
+        <div class="sim-readout">
+          <span class="sim-months mono" id="simMonths">8</span>
+          <span style="font-size:12px; color:var(--text-muted);">meses</span>
+        </div>
+      </div>
+
+      <input type="range" min="1" max="24" value="8" id="simSlider" class="sim-slider">
+
+      <div class="sim-groups">
+        <div class="sim-group">
+          <div class="sg-t">Infraestructura activa</div>
+          <div class="sg-items">
+            <span>Servidores y almacenamiento en la nube</span>
+            <span>Certificado SSL y monitoreo continuo</span>
+          </div>
+        </div>
+        <div class="sim-group">
+          <div class="sg-t">Continuidad del servicio</div>
+          <div class="sg-items">
+            <span>Respaldos programados con recuperación</span>
+            <span>Capacidad ajustable según el tráfico real</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-result">
+        <div>
+          <div class="sr-lbl">Costo de operación por el período elegido</div>
+          <div class="sr-sub">USD 610/mes + IVA, sin plazo forzoso — se ajusta cuando tú digas</div>
+        </div>
+        <div class="sr-amt mono" id="simTotal">$4,880</div>
       </div>
     </div>
 
-    <p class="disclaimer reveal">* Todos los precios son más IVA. La inversión de desarrollo no incluye comisiones del proveedor de pagos, cuentas de publicación en tiendas móviles, ni operación logística de entrega — estos costos son independientes y a cargo del cliente. El fee de soporte y alojamiento es un cargo aparte, recurrente mientras Kenocia administre la plataforma.</p>
+    <p class="disclaimer reveal">* Todos los precios son más IVA. La inversión de desarrollo no incluye comisiones del proveedor de pagos, cuentas de publicación en tiendas móviles, ni operación logística de entrega — estos costos son independientes y a cargo del cliente.</p>
 
     <a href="assets/Cotizacion_Kenocia_APP_YEGO.pdf" download class="btn btn-primary reveal" style="margin-top:28px;">↓ Descargar cotización en PDF</a>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- OTROS COSTOS -->
+<section id="otros-costos" class="section-pad">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Otros costos a considerar</div>
+      <h2 class="section-title">Todo lo que una app realmente necesita — sin sorpresas.</h2>
+      <p class="section-sub">La inversión de desarrollo no es el único costo de lanzar una aplicación. Aquí está el desglose completo de lo que se paga aparte, a quién, y cuándo.</p>
+    </div>
+
+    <h3 style="margin-top:44px;">Publicación en tiendas</h3>
+    <table class="cost-table reveal">
+      <tr><th>Concepto</th><th>Costo</th></tr>
+      <tr><td>Apple Developer Program</td><td>USD 99 / año</td></tr>
+      <tr><td>Google Play Console</td><td>USD 25 (pago único)</td></tr>
+      <tr class="cost-total"><td>Primer año</td><td>USD 124</td></tr>
+      <tr class="cost-total"><td>Años siguientes</td><td>USD 99 / año</td></tr>
+    </table>
+    <p class="cost-note">A cargo del cliente, directamente con Apple y Google — la cuenta debe quedar a su nombre para que la propiedad de las apps sea suya desde el inicio.</p>
+
+    <h3 style="margin-top:40px;">Infraestructura — etapa de desarrollo</h3>
+    <table class="cost-table reveal">
+      <tr><th>Servidor</th><th>Recursos</th><th>Costo aprox.</th></tr>
+      <tr><td>Producción / Piloto</td><td>8 GB / 4 vCPU</td><td>USD 48</td></tr>
+      <tr><td>Staging</td><td>4 GB / 2 vCPU</td><td>USD 24</td></tr>
+      <tr><td>Object Storage</td><td>250 GB</td><td>USD 5</td></tr>
+      <tr class="cost-total"><td colspan="2">Total base</td><td>USD 77 / mes</td></tr>
+    </table>
+
+    <h3 style="margin-top:40px;">Infraestructura — producción inicial</h3>
+    <table class="cost-table reveal">
+      <tr><th>Componente</th><th>Recursos</th><th>USD / mes</th></tr>
+      <tr><td>Odoo + API</td><td>8 GB / 4 vCPU</td><td>$48</td></tr>
+      <tr><td>PostgreSQL administrado</td><td>4 GB / 2 vCPU</td><td>~$60.90</td></tr>
+      <tr><td>Staging</td><td>4 GB / 2 vCPU</td><td>$24</td></tr>
+      <tr><td>Object Storage</td><td>250 GB</td><td>$5</td></tr>
+      <tr><td>Load Balancer</td><td>1 nodo</td><td>$12</td></tr>
+      <tr><td>Backups / otros</td><td>estimado</td><td>$15–30</td></tr>
+      <tr class="cost-total"><td colspan="2">Total</td><td>~$165–180 / mes</td></tr>
+    </table>
+    <p class="cost-note"><strong>Esta infraestructura ya está cubierta dentro del fee de Soporte + Alojamiento (USD 610/mes)</strong> — se muestra en detalle para que quede clara la composición real del costo, no como un cargo adicional.</p>
+
+    <h3 style="margin-top:40px;">Servicios de terceros — variables</h3>
+    <table class="cost-table reveal">
+      <tr><th>Servicio</th><th>Costo estimado</th></tr>
+      <tr><td>Comisión pasarela de pago (PowerTranz / BAC)</td><td>~2.9%–3.9% + cargo fijo por transacción</td></tr>
+      <tr><td>Google Maps API (geolocalización)</td><td>Nivel gratuito inicial, luego por consumo (~$0–200/mes)</td></tr>
+      <tr><td>Correo transaccional</td><td>$0–20/mes según volumen</td></tr>
+      <tr><td>Dominio + SSL</td><td>~$15–20/año (SSL gratuito vía Let's Encrypt)</td></tr>
+      <tr><td>SMS / WhatsApp (si se habilita)</td><td>Variable por mensaje enviado</td></tr>
+    </table>
+    <p class="cost-note">Estos costos dependen del volumen real de uso de la plataforma — no se pueden fijar de antemano, y se facturan directamente al cliente por el proveedor correspondiente.</p>
+
+    <h3 style="margin-top:40px;">Costos indirectos a considerar</h3>
+    <p class="cost-note" style="margin-bottom:20px;">Más allá del desarrollo y la infraestructura, esto es lo que en nuestra experiencia el cliente termina necesitando y no siempre presupuesta desde el inicio:</p>
+    <div class="indirect-grid reveal">
+      <div class="indirect-item">Marketing y campaña de lanzamiento para atraer comercios y consumidores</div>
+      <div class="indirect-item">Un responsable del cliente dedicado a dar seguimiento al proyecto</div>
+      <div class="indirect-item">Fotografía y contenido de los comercios afiliados para la app</div>
+      <div class="indirect-item">Asesoría legal — términos y condiciones, política de privacidad, contratos con comercios</div>
+      <div class="indirect-item">Capacitación operativa a los comercios sobre el uso de la plataforma</div>
+      <div class="indirect-item">Gestión de disputas y contracargos ante el banco emisor</div>
+      <div class="indirect-item">Renovaciones anuales — cuentas de desarrollador, dominio, certificados</div>
+      <div class="indirect-item">Auditoría de seguridad formal, si se requiere en una fase posterior</div>
+    </div>
+
+    <h3 style="margin-top:56px;">Mapa de inversión — Año 1</h3>
+    <p class="cost-note" style="margin-bottom:28px;">Con lanzamiento en el mes 4, así se distribuyen los costos fijos conocidos durante los primeros 12 meses.</p>
+
+    <div class="invest-map reveal">
+      <div class="invest-month"><div class="im-lbl">Mes 1</div><div class="im-tags"><span class="tag-dev">Desarrollo</span><span class="tag-store">Tiendas</span></div><div class="im-amt">$5,999</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 2</div><div class="im-tags"><span class="tag-dev">Desarrollo</span></div><div class="im-amt">$5,875</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 3</div><div class="im-tags"><span class="tag-dev">Desarrollo</span></div><div class="im-amt">$5,875</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 4</div><div class="im-tags"><span class="tag-dev">Desarrollo</span></div><div class="im-amt">$5,875</div></div>
+      <div class="invest-month im-launch"><div class="im-lbl">Lanzamiento</div><div class="im-tags"><span class="tag-launch">🚀 Producción</span></div><div class="im-amt">—</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 5</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 6</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 7</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 8</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 9</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 10</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 11</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 12</div><div class="im-tags"><span class="tag-sup">Soporte</span></div><div class="im-amt">$610</div></div>
+    </div>
+
+    <div class="invest-total reveal">
+      <div>
+        <div class="it-lbl">Costos fijos conocidos — Año 1</div>
+        <div class="it-sub">Desarrollo (4 pagos) + cuentas de tiendas + 8 meses de soporte y alojamiento</div>
+      </div>
+      <div class="it-amt mono">$28,504</div>
+    </div>
+    <p class="cost-note">No incluye comisiones variables de pasarela de pago, consumo excedente de mapas/correo, ni costos indirectos de marketing y operación — esos dependen del volumen real de uso y quedan fuera de este cálculo fijo.</p>
   </div>
 </section>
 
@@ -1037,6 +1264,29 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
   });
 });
+
+// payment accordion
+document.querySelectorAll('.pay-acc-head').forEach(head => {
+  head.addEventListener('click', () => {
+    const item = head.closest('.pay-acc-item');
+    const wasOpen = item.classList.contains('is-open');
+    document.querySelectorAll('.pay-acc-item').forEach(i => i.classList.remove('is-open'));
+    if(!wasOpen) item.classList.add('is-open');
+  });
+});
+
+// investment simulator
+const simSlider = document.getElementById('simSlider');
+const simMonths = document.getElementById('simMonths');
+const simTotal = document.getElementById('simTotal');
+function updateSim(){
+  const months = parseInt(simSlider.value, 10);
+  simMonths.textContent = months;
+  simTotal.textContent = '$' + (months * 610).toLocaleString('en-US');
+  const pct = ((months - 1) / (24 - 1)) * 100;
+  simSlider.style.setProperty('--fill', pct + '%');
+}
+if(simSlider){ simSlider.addEventListener('input', updateSim); updateSim(); }
 
 // pricing (fijo — sin toggle)
 </script>
