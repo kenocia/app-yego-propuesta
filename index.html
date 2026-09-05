@@ -251,7 +251,12 @@ section{ position:relative; z-index:1; }
 .price-stage{ margin-top:52px; }
 .price-hero{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
 .price-hero .amt{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:clamp(44px,7vw,72px); background:var(--grad-main); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.price-hero .amt-old{ font-family:'JetBrains Mono',monospace; font-weight:600; font-size:clamp(22px,3vw,30px); color:var(--text-dim); text-decoration:line-through; text-decoration-color:rgba(255,120,90,.6); text-decoration-thickness:2px; }
 .price-hero .unit{ font-size:16px; color:var(--text-muted); }
+.promo-badge{
+  display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:100px; margin-bottom:18px;
+  background:rgba(255,150,90,.1); border:1px solid rgba(255,150,90,.35); color:#FFB088; font-size:13px; font-weight:600;
+}
 .price-note{ color:var(--text-muted); margin-top:12px; font-size:15px; max-width:560px; }
 .price-panels{ display:grid; grid-template-columns:1fr; gap:14px; margin-top:36px; }
 .price-panels.mode-single{ display:none; }
@@ -805,8 +810,10 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
     </div>
 
     <div class="price-stage reveal" id="mode-unico">
+      <div class="promo-badge">🎉 Precio especial por decisión anticipada — ahorra $500</div>
       <div class="price-hero">
-        <span class="amt mono">$23,500</span>
+        <span class="amt-old mono">$23,500</span>
+        <span class="amt mono">$23,000</span>
         <span class="unit">USD + IVA · inversión total del desarrollo</span>
       </div>
       <p class="price-note">Desarrollo completo del MVP: app consumidor, backend/Odoo, integraciones y tableros de indicadores, del arranque a la puesta en producción — incluye los primeros 2 meses de soporte y alojamiento sin costo adicional.</p>
@@ -836,9 +843,9 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
         <div class="pay-acc-item" data-idx="4">
           <button class="pay-acc-head">
             <span class="pah-l"><span class="badge">4</span> Mensualidad 4 — Noviembre 2026</span>
-            <span class="pah-r">$5,000.00 <i class="chev">⌄</i></span>
+            <span class="pah-r">$4,500.00 <i class="chev">⌄</i></span>
           </button>
-          <div class="pay-acc-body"><p>Saldo final. Pruebas, publicación en tiendas y piloto en producción.</p></div>
+          <div class="pay-acc-body"><p>Saldo final (incluye descuento de $500 aplicado). Pruebas, publicación en tiendas y piloto en producción.</p></div>
         </div>
       </div>
     </div>
@@ -848,7 +855,7 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
         <div>
           <div class="tag">SIMULADOR DE OPERACIÓN</div>
           <div style="font-weight:600; font-size:16px; margin-top:6px;">¿Cuántos meses planeas operar después del lanzamiento?</div>
-          <div class="free-badge">🎁 Los primeros 2 meses de soporte van incluidos sin costo dentro de los $23,500</div>
+          <div class="free-badge">🎁 Los primeros 2 meses de soporte van incluidos sin costo dentro de los $23,000</div>
         </div>
         <div class="sim-readout">
           <span class="sim-months mono" id="simMonths">8</span>
@@ -964,7 +971,7 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
       <div class="invest-month"><div class="im-lbl">Mes 1</div><div class="im-tags"><span class="tag-dev">Desarrollo</span><span class="tag-store">Tiendas</span></div><div class="im-amt">$6,290.66</div></div>
       <div class="invest-month"><div class="im-lbl">Mes 2</div><div class="im-tags"><span class="tag-dev">Desarrollo</span></div><div class="im-amt">$6,166.67</div></div>
       <div class="invest-month"><div class="im-lbl">Mes 3</div><div class="im-tags"><span class="tag-dev">Desarrollo</span></div><div class="im-amt">$6,166.67</div></div>
-      <div class="invest-month"><div class="im-lbl">Mes 4</div><div class="im-tags"><span class="tag-dev">Desarrollo</span></div><div class="im-amt">$5,000.00</div></div>
+      <div class="invest-month"><div class="im-lbl">Mes 4</div><div class="im-tags"><span class="tag-dev">Desarrollo</span></div><div class="im-amt">$4,500.00</div></div>
       <div class="invest-month im-launch"><div class="im-lbl">Lanzamiento</div><div class="im-tags"><span class="tag-launch">🚀 Producción</span></div><div class="im-amt">—</div></div>
       <div class="invest-month im-free"><div class="im-lbl">Mes 5</div><div class="im-tags"><span class="tag-free">🎁 Incluido</span></div><div class="im-amt">$0</div></div>
       <div class="invest-month im-free"><div class="im-lbl">Mes 6</div><div class="im-tags"><span class="tag-free">🎁 Incluido</span></div><div class="im-amt">$0</div></div>
@@ -980,9 +987,9 @@ footer .fmeta{ font-size:12.5px; color:var(--text-dim); }
     <div class="invest-total reveal">
       <div>
         <div class="it-lbl">Costos fijos conocidos — Año 1</div>
-        <div class="it-sub">Desarrollo (4 pagos) + cuentas de tiendas + 2 meses de soporte incluidos + 6 meses de soporte pagados</div>
+        <div class="it-sub">Desarrollo con descuento aplicado (4 pagos) + cuentas de tiendas + 2 meses de soporte incluidos + 6 meses de soporte pagados</div>
       </div>
-      <div class="it-amt mono">$27,284</div>
+      <div class="it-amt mono">$26,784</div>
     </div>
     <p class="cost-note">No incluye comisiones variables de pasarela de pago, consumo excedente de mapas/correo, ni costos indirectos de marketing y operación — esos dependen del volumen real de uso y quedan fuera de este cálculo fijo.</p>
   </div>
