@@ -223,12 +223,12 @@ input[type=range]{width:100%;margin:var(--s4) 0 var(--s2);accent-color:var(--red
 .map-total{display:flex;justify-content:space-between;border-top:1px solid var(--line-strong);padding-top:var(--s4);margin-top:var(--s3);font-weight:500}
 
 /* cronograma */
-.gantt{display:grid;grid-template-columns:200px repeat(6,1fr);font-size:14px;margin-top:var(--s4)}
+.gantt{display:grid;grid-template-columns:200px repeat(8,1fr);font-size:14px;margin-top:var(--s4)}
 .gantt > div{padding:var(--s3) 0;border-top:1px solid var(--line);display:flex;align-items:center}
 .gantt .h{color:var(--faint);border-top:0;padding-top:0}
 .gantt .bar{height:8px;border-radius:var(--r-pill);background:var(--red);margin:0 2px;width:100%}
 .gantt .bar.soft{background:rgba(0,0,0,.22)}
-@media (max-width:640px){.gantt{grid-template-columns:96px repeat(6,1fr);font-size:13px}}
+@media (max-width:640px){.gantt{grid-template-columns:96px repeat(8,1fr);font-size:13px}}
 
 /* cierre */
 #cta{text-align:left}
@@ -445,7 +445,7 @@ footer a{text-decoration:none}
         <span class="price-tag" id="saveTag"></span>
         <div class="price-was">Precio de lista <s class="tnum" id="listPrice"></s></div>
         <div class="price-main tnum"><span id="devPrice"></span><small>USD más IVA</small></div>
-        <p class="muted" style="font-size:16px">Desarrollo completo: app, paneles, backend en Laravel, Odoo financiero, integración de pagos y tableros. Incluye los primeros dos meses de soporte y alojamiento, después del cierre del QA.</p>
+        <p class="muted" style="font-size:16px">Desarrollo completo: app, paneles, backend en Laravel, Odoo financiero, integración de pagos y tableros. Incluye los primeros cuatro meses de soporte y alojamiento, a partir del cierre del QA.</p>
 
         <div class="acc" id="acc"></div>
         <div class="acc-total"><span>Total del desarrollo</span><span class="tnum" id="accTotal"></span></div>
@@ -454,7 +454,7 @@ footer a{text-decoration:none}
 
       <div class="sim glass">
         <h3>Soporte y alojamiento</h3>
-        <p class="muted" style="font-size:16px">USD 610 al mes más IVA, a partir del cierre del QA. Cubre servidores, respaldos, monitoreo, correcciones y soporte funcional. Los dos primeros meses no se cobran.</p>
+        <p class="muted" style="font-size:16px">USD 500 al mes más IVA, a partir del quinto mes de operación (agosto de 2027). Cubre servidores, respaldos, monitoreo, correcciones y soporte funcional. Los primeros cuatro meses no se cobran.</p>
         <div class="sim-row"><label for="sim" class="small">Meses de operación</label><output id="simMonths" class="tnum" for="sim"></output></div>
         <input type="range" id="sim" min="1" max="24" value="12" aria-describedby="simSub">
         <div class="sim-out">
@@ -494,7 +494,7 @@ footer a{text-decoration:none}
             <tr><td>Producción</td><td class="tnum">USD 165 a 180</td></tr>
           </tbody>
         </table></div>
-        <p class="small" style="margin-top:var(--s3)">Ya está cubierta por el plan de soporte y alojamiento de USD 610. Se muestra para que la composición del costo sea clara. El monto real depende de región, tráfico y volumen de imágenes, y se confirma con la prueba de arquitectura.</p>
+        <p class="small" style="margin-top:var(--s3)">Ya está cubierta por el plan de soporte y alojamiento de USD 500. Se muestra para que la composición del costo sea clara. El monto real depende de región, tráfico y volumen de imágenes, y se confirma con la prueba de arquitectura.</p>
       </div>
 
       <div class="block">
@@ -542,20 +542,20 @@ footer a{text-decoration:none}
         <li><div><b>Piloto, QA y alineación</b><span>Salida a piloto con varios comercios y un mes para probar, corregir y alinear con el cliente.</span></div></li>
       </ol>
       <h3>Cronograma: inicio el 15 de diciembre de 2026</h3>
-      <div class="gantt" role="img" aria-label="Cronograma: inicio el 15 de diciembre de 2026, piloto el 1 de marzo de 2027, un mes de QA y alineación hasta el 1 de abril, y dos meses de soporte incluido.">
-        <div class="h"></div><div class="h">Dic</div><div class="h">Ene</div><div class="h">Feb</div><div class="h">Mar</div><div class="h">Abr</div><div class="h">May</div>
-        <div>Definiciones</div><div><span class="bar"></span></div><div></div><div></div><div></div><div></div><div></div>
-        <div>Diseño</div><div><span class="bar"></span></div><div><span class="bar"></span></div><div></div><div></div><div></div><div></div>
-        <div>Desarrollo</div><div></div><div><span class="bar"></span></div><div><span class="bar"></span></div><div></div><div></div><div></div>
-        <div>Validación interna</div><div></div><div></div><div><span class="bar"></span></div><div></div><div></div><div></div>
-        <div>Piloto, QA y alineación</div><div></div><div></div><div></div><div><span class="bar"></span></div><div></div><div></div>
-        <div>Soporte incluido</div><div></div><div></div><div></div><div></div><div><span class="bar soft"></span></div><div><span class="bar soft"></span></div>
+      <div class="gantt" role="img" aria-label="Cronograma: inicio el 15 de diciembre de 2026, piloto el 1 de marzo de 2027, un mes de QA y alineación hasta el 1 de abril, y cuatro meses de soporte incluido.">
+        <div class="h"></div><div class="h">Dic</div><div class="h">Ene</div><div class="h">Feb</div><div class="h">Mar</div><div class="h">Abr</div><div class="h">May</div><div class="h">Jun</div><div class="h">Jul</div>
+        <div>Definiciones</div><div><span class="bar"></span></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        <div>Diseño</div><div><span class="bar"></span></div><div><span class="bar"></span></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        <div>Desarrollo</div><div></div><div><span class="bar"></span></div><div><span class="bar"></span></div><div></div><div></div><div></div><div></div><div></div>
+        <div>Validación interna</div><div></div><div></div><div><span class="bar"></span></div><div></div><div></div><div></div><div></div><div></div>
+        <div>Piloto, QA y alineación</div><div></div><div></div><div></div><div><span class="bar"></span></div><div></div><div></div><div></div><div></div>
+        <div>Soporte incluido</div><div></div><div></div><div></div><div></div><div><span class="bar soft"></span></div><div><span class="bar soft"></span></div><div><span class="bar soft"></span></div><div><span class="bar soft"></span></div>
       </div>
       <ul class="rows" style="margin-top:var(--s6)">
         <li><h4>15 de diciembre de 2026: inicio</h4><p>Arranque del proyecto y primer pago.</p></li>
         <li><h4>1 de marzo de 2027: salida a piloto</h4><p>A los dos meses y medio, con varios comercios reales.</p></li>
         <li><h4>Marzo de 2027: QA y alineación</h4><p>Un mes para probar, corregir y alinear el piloto con el cliente. Cierre y aceptación el 1 de abril.</p></li>
-        <li><h4>Abril y mayo de 2027: soporte incluido</h4><p>Los dos primeros meses de soporte y alojamiento no se cobran.</p></li>
+        <li><h4>Abril a julio de 2027: soporte incluido</h4><p>Los primeros cuatro meses de soporte y alojamiento no se cobran. El plan de USD 500 al mes empieza en agosto.</p></li>
       </ul>
       <p class="small" style="margin-top:var(--s3)">El plazo supone que las definiciones de la sección siguiente se cierran en diciembre y que la afiliación con BAC está lista antes del piloto.</p>
     </div>
@@ -627,7 +627,7 @@ footer a{text-decoration:none}
 
 <script>
 /* ---------- datos: única fuente de cifras ---------- */
-const DEV = 21500, LIST = 23500, IVA = 0.15, SUPPORT = 610, FREE = 2, STORES = 124;
+const DEV = 21500, LIST = 23500, IVA = 0.15, SUPPORT = 500, FREE = 4, STORES = 124;
 const PAYS = [
   {t:'Pago 1. 15 de diciembre, al firmar', n:'Arranque: diagnóstico, definiciones y diseño de arquitectura.', v:6166.67},
   {t:'Pago 2. Enero de 2027',    n:'Diseño funcional y de interfaz; base del backend y de Odoo.',   v:6166.67},
